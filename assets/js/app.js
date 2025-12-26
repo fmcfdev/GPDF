@@ -132,10 +132,15 @@ async function merge() {
     const mergedPdf = await PDFDocument.create();
     const total = selectedFiles.length;
 
-    // Ajusta a frequência de pausa para não sobrecarregar processadores mobile
-    const pauseFrequency = isMobileDevice ? 2 : 5;
+    // Garante que a variável existe, caso contrário assume false (desktop)
+    const mobileMode =
+      typeof isMobileDevice !== "undefined" ? isMobileDevice : false;
+    const pauseFrequency = mobileMode ? 2 : 5;
 
     for (let i = 0; i < total; i++) {
+      // Verificação extra para evitar arquivos vazios no array
+      if (!selectedFiles[i]) continue;
+
       const bytes = await selectedFiles[i].arrayBuffer();
       const pdf = await PDFDocument.load(bytes, { ignoreEncryption: true });
       const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());

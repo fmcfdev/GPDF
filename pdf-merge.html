@@ -7,48 +7,62 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    <div id="loaderOverlay" class="overlay">
-      <div class="loader-content">
-        <h3>Processando PDFs...</h3>
-        <div class="progress-wrapper">
-          <div id="progressBar" class="progress-bar"></div>
+    <div class="page-container">
+      <header>
+        <h1>GPDF<span>Tools</span></h1>
+        <p>Gerenciamento de PDF simples, rápido e 100% seguro</p>
+      </header>
+
+      <div id="loaderOverlay" class="overlay">
+        <div class="loader-content">
+          <h3>Processando PDFs...</h3>
+          <div class="progress-wrapper">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <p id="progressText">0%</p>
         </div>
-        <p id="progressText">0%</p>
+      </div>
+
+      <h2>Quais arquivos você deseja juntar em um único PDF?</h2>
+
+      <div class="container" id="dropZone">
+        <p class="selector">
+          <span style="text-decoration: underline">Clique aqui</span> ou arraste
+          para selecionar os arquivos
+        </p>
+
+        <input
+          type="file"
+          id="fileInput"
+          multiple
+          accept="application/pdf"
+          style="display: none"
+        />
+
+        <div
+          class="filter-container"
+          id="filterContainer"
+          style="display: none"
+        >
+          <input
+            type="text"
+            id="filterInput"
+            placeholder="Filtrar na lista..."
+          />
+          <button id="clearFilterBtn" title="Limpar Filtro">×</button>
+        </div>
+
+        <div id="fileList"></div>
+
+        <div class="actions">
+          <button id="mergeBtn" disabled>Juntar e Baixar PDF</button>
+          <button id="clearAllBtn" class="btn-clear" style="display: none">
+            Limpar Tudo
+          </button>
+        </div>
+        <div id="statusUpdate"></div>
       </div>
     </div>
-
-    <div class="container" id="dropZone">
-      <h2>GPDFTools - Junção em Massa</h2>
-
-      <p class="selector">
-        <span style="text-decoration: underline">Clique aqui</span> ou arraste
-        para selecionar os arquivos
-      </p>
-
-      <input
-        type="file"
-        id="fileInput"
-        multiple
-        accept="application/pdf"
-        style="display: none"
-      />
-
-      <div class="filter-container" id="filterContainer" style="display: none">
-        <input type="text" id="filterInput" placeholder="Filtrar na lista..." />
-        <button id="clearFilterBtn" title="Limpar Filtro">×</button>
-      </div>
-
-      <div id="fileList"></div>
-
-      <div class="actions">
-        <button id="mergeBtn" disabled>Juntar e Baixar PDF</button>
-        <button id="clearAllBtn" class="btn-clear" style="display: none">
-          Limpar Tudo
-        </button>
-      </div>
-      <div id="statusUpdate"></div>
-    </div>
-
     <script src="./assets/js/lib/pdf-lib.min.js"></script>
     <script src="./assets/js/app.js"></script>
   </body>

@@ -15,9 +15,8 @@ const elements = {
   progressText: document.getElementById("progressText"),
 };
 
-// Faz a DropZone abrir o seletor de arquivos ao clicar
+// Event Listeners
 elements.dropZone.addEventListener("click", (e) => {
-  // Evita abrir o seletor se clicar em botões, inputs ou na lista
   if (
     e.target === elements.dropZone ||
     e.target.tagName === "P" ||
@@ -28,13 +27,13 @@ elements.dropZone.addEventListener("click", (e) => {
   }
 });
 
-// Drag and Drop
 ["dragenter", "dragover", "dragleave", "drop"].forEach((name) => {
   elements.dropZone.addEventListener(name, (e) => {
     e.preventDefault();
     e.stopPropagation();
   });
 });
+
 elements.dropZone.addEventListener("dragenter", () =>
   elements.dropZone.classList.add("dragover")
 );
@@ -61,7 +60,7 @@ elements.clearFilter.addEventListener("click", () => {
 function addFiles(files) {
   selectedFiles = [...selectedFiles, ...files];
   render();
-  elements.fileInput.value = ""; // Limpa o input para não mostrar "X arquivos"
+  elements.fileInput.value = "";
 }
 
 function render() {
@@ -81,7 +80,7 @@ function render() {
 }
 
 window.remove = (event, i) => {
-  event.stopPropagation(); // Impede que o clique no "remover" abra o seletor de arquivos
+  event.stopPropagation();
   selectedFiles.splice(i, 1);
   render();
 };
@@ -93,32 +92,56 @@ elements.clearAllBtn.addEventListener("click", (e) => {
   render();
 });
 
+// --- FUNÇÃO DE MERGE OTIMIZADA PARA ALTA PERFORMANCE ---
 async function merge() {
   try {
     elements.loaderOverlay.style.display = "flex";
     updateProgress(0);
+
+    // Criamos o documento de destino
     const mergedPdf = await PDFDocument.create();
     const total = selectedFiles.length;
 
     for (let i = 0; i < total; i++) {
-      const bytes = await selectedFiles[i].arrayBuffer();
-      const pdf = await PDFDocument.load(bytes);
-      const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-      pages.forEach((p) => mergedPdf.addPage(p));
-      updateProgress(Math.round(((i + 1) / total) * 100));
-      await new Promise((r) => setTimeout(r, 0));
+      try {
+        // 1. Lê o arquivo atual como ArrayBuffer
+        const bytes = await selectedFiles[i].arrayBuffer();
+
+        // 2. Carrega o PDF (usamos a opção de carregar apenas o necessário se disponível)
+        const pdf = await PDFDocument.load(bytes, { ignoreEncryption: true });
+
+        // 3. Copia as páginas
+        const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        pages.forEach((p) => mergedPdf.addPage(p));
+
+        // 4. Feedback visual e liberação de micro-tarefas para o GC (Garbage Collector)
+        updateProgress(Math.round(((i + 1) / total) * 100));
+
+        // Aumentamos o timeout para 10ms em listas gigantes para dar fôlego à CPU
+        if (i % 10 === 0) await new Promise((r) => setTimeout(r, 10));
+        else await new Promise((r) => setTimeout(r, 0));
+      } catch (err) {
+        console.error(`Erro no arquivo ${selectedFiles[i].name}:`, err);
+        // Continua para o próximo mesmo se um falhar
+      }
     }
 
+    // 5. Finalização
     const finalBytes = await mergedPdf.save();
     const blob = new Blob([finalBytes], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = "GPDF_Unificado.pdf";
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
   } catch (e) {
-    alert("Erro no processamento.");
+    console.error("Erro fatal:", e);
+    alert(
+      "Erro no processamento. Tente grupos menores ou verifique se há PDFs corrompidos."
+    );
   } finally {
     elements.loaderOverlay.style.display = "none";
   }

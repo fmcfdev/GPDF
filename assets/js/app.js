@@ -59,7 +59,17 @@ elements.clearFilter.addEventListener("click", () => {
 });
 
 function addFiles(files) {
+  // Concatena os novos arquivos com os já existentes
   selectedFiles = [...selectedFiles, ...files];
+
+  // Ordenação alfabética pelo nome do arquivo
+  selectedFiles.sort((a, b) => {
+    return a.name.localeCompare(b.name, undefined, {
+      numeric: true,
+      sensitivity: "base",
+    });
+  });
+
   render();
   elements.fileInput.value = "";
 }

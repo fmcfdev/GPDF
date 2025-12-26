@@ -16,7 +16,22 @@ const elements = {
   progressText: document.getElementById("progressText"),
 };
 
-// Abre seletor ao clicar na zona de drop (exceto se clicar em botões internos)
+// Detecção simples de dispositivo mobile
+// Detecta se o dispositivo é móvel ou tablet
+const isMobileDevice =
+  /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(
+    navigator.userAgent
+  );
+
+// Altera o texto do seletor se for mobile
+if (isMobileDevice) {
+  const selectorText = document.querySelector(".selector");
+  if (selectorText) {
+    selectorText.innerHTML =
+      '<span style="text-decoration: underline">Clique aqui</span> para selecionar os arquivos';
+  }
+}
+
 elements.dropZone.addEventListener("click", (e) => {
   if (
     e.target.closest("button") ||
@@ -27,7 +42,6 @@ elements.dropZone.addEventListener("click", (e) => {
   elements.fileInput.click();
 });
 
-// Drag and Drop
 ["dragenter", "dragover", "dragleave", "drop"].forEach((name) => {
   elements.dropZone.addEventListener(name, (e) => {
     e.preventDefault();
@@ -59,17 +73,13 @@ elements.clearFilter.addEventListener("click", () => {
 });
 
 function addFiles(files) {
-  // Concatena os novos arquivos com os já existentes
   selectedFiles = [...selectedFiles, ...files];
-
-  // Ordenação alfabética pelo nome do arquivo
   selectedFiles.sort((a, b) => {
     return a.name.localeCompare(b.name, undefined, {
       numeric: true,
       sensitivity: "base",
     });
   });
-
   render();
   elements.fileInput.value = "";
 }
@@ -87,7 +97,6 @@ function render() {
     }
   });
 
-  // Controle do Filtro: só aparece se houver arquivos
   if (selectedFiles.length > 0) {
     elements.filterContainer.style.display = "flex";
   } else {
@@ -123,18 +132,18 @@ async function merge() {
     const mergedPdf = await PDFDocument.create();
     const total = selectedFiles.length;
 
+    // Ajusta a frequência de pausa para não sobrecarregar processadores mobile
+    const pauseFrequency = isMobile ? 2 : 5;
+
     for (let i = 0; i < total; i++) {
-      // LER ARQUIVO POR ARQUIVO PARA ECONOMIZAR RAM
       const bytes = await selectedFiles[i].arrayBuffer();
       const pdf = await PDFDocument.load(bytes, { ignoreEncryption: true });
-
       const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
       pages.forEach((p) => mergedPdf.addPage(p));
 
       updateProgress(Math.round(((i + 1) / total) * 100));
 
-      // MICRO-PAUSA: Permite que o Garbage Collector limpe a RAM e a UI atualize
-      if (i % 5 === 0) await new Promise((r) => setTimeout(r, 15));
+      if (i % pauseFrequency === 0) await new Promise((r) => setTimeout(r, 20));
       else await new Promise((r) => setTimeout(r, 0));
     }
 

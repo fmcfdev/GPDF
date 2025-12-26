@@ -133,7 +133,7 @@ async function merge() {
     const total = selectedFiles.length;
 
     // Ajusta a frequência de pausa para não sobrecarregar processadores mobile
-    const pauseFrequency = isMobile ? 2 : 5;
+    const pauseFrequency = isMobileDevice ? 2 : 5;
 
     for (let i = 0; i < total; i++) {
       const bytes = await selectedFiles[i].arrayBuffer();

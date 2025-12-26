@@ -8,6 +8,7 @@ const elements = {
   clearAllBtn: document.getElementById("clearAllBtn"),
   dropZone: document.getElementById("dropZone"),
   filterInput: document.getElementById("filterInput"),
+  filterContainer: document.getElementById("filterContainer"),
   clearFilter: document.getElementById("clearFilterBtn"),
   status: document.getElementById("statusUpdate"),
   loaderOverlay: document.getElementById("loaderOverlay"),
@@ -15,18 +16,18 @@ const elements = {
   progressText: document.getElementById("progressText"),
 };
 
-// Event Listeners
+// Abre seletor ao clicar na zona de drop (exceto se clicar em botões internos)
 elements.dropZone.addEventListener("click", (e) => {
   if (
-    e.target === elements.dropZone ||
-    e.target.tagName === "P" ||
-    e.target.tagName === "H2" ||
-    e.target.tagName === "STRONG"
-  ) {
-    elements.fileInput.click();
-  }
+    e.target.closest("button") ||
+    e.target.closest("input") ||
+    e.target.closest("#fileList")
+  )
+    return;
+  elements.fileInput.click();
 });
 
+// Drag and Drop
 ["dragenter", "dragover", "dragleave", "drop"].forEach((name) => {
   elements.dropZone.addEventListener(name, (e) => {
     e.preventDefault();
@@ -66,6 +67,7 @@ function addFiles(files) {
 function render() {
   elements.fileList.innerHTML = "";
   const term = elements.filterInput.value.toLowerCase();
+
   selectedFiles.forEach((file, i) => {
     if (file.name.toLowerCase().includes(term)) {
       const item = document.createElement("div");
@@ -74,9 +76,21 @@ function render() {
       elements.fileList.appendChild(item);
     }
   });
+
+  // Controle do Filtro: só aparece se houver arquivos
+  if (selectedFiles.length > 0) {
+    elements.filterContainer.style.display = "flex";
+  } else {
+    elements.filterContainer.style.display = "none";
+    elements.filterInput.value = "";
+  }
+
   elements.mergeBtn.disabled = selectedFiles.length < 2;
   elements.clearAllBtn.style.display = selectedFiles.length ? "block" : "none";
-  elements.status.innerText = `${selectedFiles.length} arquivo(s) na fila.`;
+  elements.status.innerText =
+    selectedFiles.length > 0
+      ? `${selectedFiles.length} arquivo(s) na fila.`
+      : "";
 }
 
 window.remove = (event, i) => {
@@ -88,45 +102,32 @@ window.remove = (event, i) => {
 elements.clearAllBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   selectedFiles = [];
-  elements.filterInput.value = "";
   render();
 });
 
-// --- FUNÇÃO DE MERGE OTIMIZADA PARA ALTA PERFORMANCE ---
 async function merge() {
   try {
     elements.loaderOverlay.style.display = "flex";
     updateProgress(0);
 
-    // Criamos o documento de destino
     const mergedPdf = await PDFDocument.create();
     const total = selectedFiles.length;
 
     for (let i = 0; i < total; i++) {
-      try {
-        // 1. Lê o arquivo atual como ArrayBuffer
-        const bytes = await selectedFiles[i].arrayBuffer();
+      // LER ARQUIVO POR ARQUIVO PARA ECONOMIZAR RAM
+      const bytes = await selectedFiles[i].arrayBuffer();
+      const pdf = await PDFDocument.load(bytes, { ignoreEncryption: true });
 
-        // 2. Carrega o PDF (usamos a opção de carregar apenas o necessário se disponível)
-        const pdf = await PDFDocument.load(bytes, { ignoreEncryption: true });
+      const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+      pages.forEach((p) => mergedPdf.addPage(p));
 
-        // 3. Copia as páginas
-        const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-        pages.forEach((p) => mergedPdf.addPage(p));
+      updateProgress(Math.round(((i + 1) / total) * 100));
 
-        // 4. Feedback visual e liberação de micro-tarefas para o GC (Garbage Collector)
-        updateProgress(Math.round(((i + 1) / total) * 100));
-
-        // Aumentamos o timeout para 10ms em listas gigantes para dar fôlego à CPU
-        if (i % 10 === 0) await new Promise((r) => setTimeout(r, 10));
-        else await new Promise((r) => setTimeout(r, 0));
-      } catch (err) {
-        console.error(`Erro no arquivo ${selectedFiles[i].name}:`, err);
-        // Continua para o próximo mesmo se um falhar
-      }
+      // MICRO-PAUSA: Permite que o Garbage Collector limpe a RAM e a UI atualize
+      if (i % 5 === 0) await new Promise((r) => setTimeout(r, 15));
+      else await new Promise((r) => setTimeout(r, 0));
     }
 
-    // 5. Finalização
     const finalBytes = await mergedPdf.save();
     const blob = new Blob([finalBytes], { type: "application/pdf" });
     const url = URL.createObjectURL(blob);
@@ -138,9 +139,9 @@ async function merge() {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   } catch (e) {
-    console.error("Erro fatal:", e);
+    console.error(e);
     alert(
-      "Erro no processamento. Tente grupos menores ou verifique se há PDFs corrompidos."
+      "Erro ao processar os arquivos. Certifique-se de que nenhum PDF está corrompido."
     );
   } finally {
     elements.loaderOverlay.style.display = "none";
@@ -152,7 +153,4 @@ function updateProgress(percent) {
   elements.progressText.innerText = percent + "%";
 }
 
-elements.mergeBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  merge();
-});
+elements.mergeBtn.addEventListener("click", merge);

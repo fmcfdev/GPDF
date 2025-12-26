@@ -20,7 +20,10 @@
     <div class="container" id="dropZone">
       <h2>GPDF - Junção em Massa</h2>
 
-      <p class="selector">Arraste os PDFs aqui ou clique para selecionar</p>
+      <p class="selector">
+        <span style="text-decoration: underline">Clique aqui</span> ou arraste
+        para selecionar os arquivos
+      </p>
 
       <input
         type="file"
@@ -30,7 +33,7 @@
         style="display: none"
       />
 
-      <div class="filter-container">
+      <div class="filter-container" id="filterContainer" style="display: none">
         <input type="text" id="filterInput" placeholder="Filtrar na lista..." />
         <button id="clearFilterBtn" title="Limpar Filtro">×</button>
       </div>

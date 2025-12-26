@@ -1,4 +1,3 @@
-/* 1. Base e Variáveis */
 :root {
   --primary: #3182ce;
   --primary-hover: #2c5282;
@@ -19,7 +18,6 @@ body {
   color: var(--text-main);
 }
 
-/* 2. Landing Page (index.html) */
 .landing-container {
   text-align: center;
   max-width: 900px;
@@ -31,11 +29,9 @@ body {
   font-size: 3rem;
   margin: 0;
 }
-
 .landing-container header h1 span {
   color: var(--primary);
 }
-
 .landing-container header p {
   font-size: 1.2rem;
   color: var(--text-muted);
@@ -68,7 +64,6 @@ body {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
   border-color: var(--primary);
 }
-
 .tool-card .icon {
   font-size: 3rem;
   margin-bottom: 15px;
@@ -83,27 +78,6 @@ body {
   font-weight: bold;
 }
 
-.tool-card.disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  filter: grayscale(1);
-}
-
-.badge {
-  margin-top: 20px;
-  background: #cbd5e0;
-  padding: 5px 15px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  color: #4a5568;
-}
-
-footer p {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
-
-/* 3. Ferramenta de Merge (pdf-merge.html) */
 .container {
   width: 90%;
   max-width: 600px;
@@ -120,6 +94,11 @@ footer p {
   border-color: var(--primary);
   background: #ebf8ff;
 }
+.selector {
+  border: dashed 1px #cbd5e0;
+  padding: 20px;
+  border-radius: 5px;
+}
 
 .overlay {
   position: fixed;
@@ -134,52 +113,39 @@ footer p {
   z-index: 1000;
 }
 
-.loader-content {
-  width: 80%;
-  max-width: 400px;
-  text-align: center;
-}
-
 .progress-wrapper {
   width: 100%;
   height: 20px;
   background: #edf2f7;
-  border-radius: 10px;
+  border-radius: 5px;
   overflow: hidden;
   margin: 15px 0;
 }
-
 .progress-bar {
   width: 0%;
   height: 100%;
   background: var(--primary);
   transition: width 0.2s ease;
 }
-
 .filter-container {
   display: flex;
   gap: 8px;
   margin: 15px 0;
-  cursor: default;
 }
-
 #filterInput {
   flex: 1;
   padding: 10px;
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 5px;
   outline: none;
 }
-
 #fileList {
   margin: 15px 0;
   max-height: 300px;
   overflow-y: auto;
   border: 1px solid #edf2f7;
   border-radius: 8px;
-  cursor: default;
 }
-
 .file-item {
   display: flex;
   justify-content: space-between;
@@ -188,7 +154,6 @@ footer p {
   border-bottom: 1px solid #edf2f7;
   background: #fff;
 }
-
 .file-item span {
   flex: 1;
   font-size: 13px;
@@ -198,7 +163,6 @@ footer p {
   margin-right: 15px;
   text-align: left;
 }
-
 .btn-remove {
   flex: 0 0 25px;
   width: 25px;
@@ -213,22 +177,18 @@ footer p {
   justify-content: center;
   font-size: 18px;
 }
-
 .actions {
   display: flex;
   gap: 10px;
-  cursor: default;
 }
-
 button {
   flex: 1;
   padding: 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
   font-weight: 600;
 }
-
 #mergeBtn {
   background: var(--primary);
   color: white;
@@ -237,19 +197,29 @@ button {
   background: #cbd5e0;
   cursor: not-allowed;
 }
-
 .btn-clear {
   background: #e5e7eb;
   color: #4a5568;
 }
-
 #clearFilterBtn {
   background: #edf2f7;
   flex: 0 0 40px;
 }
-
 #statusUpdate {
   margin-top: 10px;
   font-size: 12px;
   color: var(--text-muted);
+}
+.badge {
+  margin-top: 20px;
+  background: #cbd5e0;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: #4a5568;
+}
+footer p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 40px;
 }

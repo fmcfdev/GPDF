@@ -92,6 +92,15 @@ header p {
   font-weight: bold;
 }
 
+.badge {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background: var(--text-muted);
+  color: white;
+  border-radius: 50px;
+  font-weight: bold;
+}
+
 .container {
   background: var(--card-bg);
   padding: clamp(15px, 5vw, 30px);

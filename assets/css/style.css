@@ -186,9 +186,54 @@ header p {
   padding: 10px 12px;
   border-bottom: 1px solid #edf2f7;
   background: #fff;
+  cursor: grab;
+  transition: background 0.15s ease, opacity 0.15s ease;
+  user-select: none;
 }
 
-.file-item span {
+.file-item:active {
+  cursor: grabbing;
+}
+
+.file-item.dragging {
+  opacity: 0.4;
+  background: #ebf8ff;
+}
+
+.file-item.drag-over-top {
+  border-top: 2px solid var(--primary);
+}
+
+.file-item.drag-over-bottom {
+  border-bottom: 2px solid var(--primary);
+}
+
+.drag-handle {
+  flex: 0 0 20px;
+  color: #a0aec0;
+  font-size: 16px;
+  margin-right: 10px;
+  cursor: grab;
+  line-height: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drag-handle span {
+  display: block;
+  width: 14px;
+  height: 2px;
+  background: #a0aec0;
+  border-radius: 2px;
+  margin: 0;
+  flex: none;
+  white-space: initial;
+  overflow: initial;
+  text-overflow: initial;
+}
+
+.file-item .file-name {
   flex: 1;
   font-size: 13px;
   white-space: nowrap;

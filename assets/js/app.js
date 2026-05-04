@@ -74,27 +74,101 @@ elements.clearFilter.addEventListener("click", () => {
 
 function addFiles(files) {
   selectedFiles = [...selectedFiles, ...files];
-  selectedFiles.sort((a, b) => {
-    return a.name.localeCompare(b.name, undefined, {
-      numeric: true,
-      sensitivity: "base",
-    });
-  });
   render();
   elements.fileInput.value = "";
 }
 
+let dragSrcIndex = null;
+
 function render() {
   elements.fileList.innerHTML = "";
   const term = elements.filterInput.value.toLowerCase();
+  const isFiltering = term.length > 0;
 
   selectedFiles.forEach((file, i) => {
-    if (file.name.toLowerCase().includes(term)) {
-      const item = document.createElement("div");
-      item.className = "file-item";
-      item.innerHTML = `<span>${file.name}</span><button class="btn-remove" onclick="remove(event, ${i})">×</button>`;
-      elements.fileList.appendChild(item);
+    if (!file.name.toLowerCase().includes(term)) return;
+
+    const item = document.createElement("div");
+    item.className = "file-item";
+    item.dataset.index = i;
+    item.draggable = !isFiltering;
+
+    const handle = document.createElement("div");
+    handle.className = "drag-handle";
+    handle.title = isFiltering ? "Desative o filtro para reordenar" : "Arraste para reordenar";
+    handle.innerHTML = "<span></span><span></span><span></span>";
+
+    const name = document.createElement("span");
+    name.className = "file-name";
+    name.textContent = file.name;
+
+    const removeBtn = document.createElement("button");
+    removeBtn.className = "btn-remove";
+    removeBtn.textContent = "×";
+    removeBtn.title = "Remover arquivo";
+    removeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      selectedFiles.splice(i, 1);
+      render();
+    });
+
+    item.appendChild(handle);
+    item.appendChild(name);
+    item.appendChild(removeBtn);
+
+    if (!isFiltering) {
+      item.addEventListener("dragstart", (e) => {
+        dragSrcIndex = i;
+        e.dataTransfer.effectAllowed = "move";
+        setTimeout(() => item.classList.add("dragging"), 0);
+      });
+
+      item.addEventListener("dragend", () => {
+        document.querySelectorAll(".file-item").forEach((el) => {
+          el.classList.remove("dragging", "drag-over-top", "drag-over-bottom");
+        });
+        dragSrcIndex = null;
+      });
+
+      item.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+        document.querySelectorAll(".file-item").forEach((el) =>
+          el.classList.remove("drag-over-top", "drag-over-bottom")
+        );
+        const rect = item.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        if (e.clientY < midY) {
+          item.classList.add("drag-over-top");
+        } else {
+          item.classList.add("drag-over-bottom");
+        }
+      });
+
+      item.addEventListener("dragleave", () => {
+        item.classList.remove("drag-over-top", "drag-over-bottom");
+      });
+
+      item.addEventListener("drop", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const destIndex = parseInt(item.dataset.index);
+        if (dragSrcIndex === null || dragSrcIndex === destIndex) return;
+
+        const rect = item.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        const insertBefore = e.clientY < midY;
+
+        const moved = selectedFiles.splice(dragSrcIndex, 1)[0];
+        const adjustedDest = dragSrcIndex < destIndex ? destIndex - 1 : destIndex;
+        const finalIndex = insertBefore ? adjustedDest : adjustedDest + 1;
+        selectedFiles.splice(finalIndex, 0, moved);
+
+        render();
+      });
     }
+
+    elements.fileList.appendChild(item);
   });
 
   if (selectedFiles.length > 0) {
@@ -112,11 +186,6 @@ function render() {
       : "";
 }
 
-window.remove = (event, i) => {
-  event.stopPropagation();
-  selectedFiles.splice(i, 1);
-  render();
-};
 
 elements.clearAllBtn.addEventListener("click", (e) => {
   e.stopPropagation();

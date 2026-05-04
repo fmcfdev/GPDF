@@ -3,19 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GPDFTools - Dividir PDF</title>
+
+    <!-- SEO Primário -->
+    <title>Dividir PDF Grátis e Online — GPDFTools</title>
     <meta
       name="description"
-      content="Extraia páginas específicas de um PDF e gere um novo documento instantaneamente, de forma 100% segura no seu navegador."
+      content="Extraia páginas específicas de um PDF e gere um novo documento gratuitamente. Selecione exatamente as páginas que deseja — processamento 100% local, sem upload."
     />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://gpdftools.com/pdf-split.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gpdftools.com/pdf-split.html" />
+    <meta property="og:title" content="Dividir PDF Grátis — GPDFTools" />
+    <meta
+      property="og:description"
+      content="Selecione as páginas que deseja extrair e gere um novo PDF em segundos. 100% local, sem envio de arquivos."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Dividir PDF Grátis — GPDFTools" />
+    <meta
+      name="twitter:description"
+      content="Extraia páginas de PDFs sem enviar nada para a internet. Grátis e seguro."
+    />
+
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
+    <div id="nav-placeholder"></div>
+
     <div class="page-container">
-      <header>
-        <h1>GPDF<span>Tools</span></h1>
-        <p>Gerenciamento de PDF simples, rápido e 100% seguro</p>
-      </header>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        Processamento 100% local — seus arquivos nunca saem do seu dispositivo
+      </div>
 
       <div id="loaderOverlay" class="overlay">
         <div class="loader-content">
@@ -82,9 +108,19 @@
       </div>
 
       <div id="statusUpdate"></div>
+
+      <footer>
+        <p>
+          Ao contrário de outros sites, nós
+          <strong>não fazemos cópias e não recebemos seus arquivos</strong> em
+          nossos sistemas. A manipulação dos PDFs acontece apenas na memória do
+          seu próprio aparelho, garantindo sigilo total das suas informações.
+        </p>
+      </footer>
     </div>
 
     <script src="./assets/js/lib/pdf-lib.min.js"></script>
     <script src="./assets/js/split.js"></script>
+    <script src="./assets/js/nav.js"></script>
   </body>
 </html>

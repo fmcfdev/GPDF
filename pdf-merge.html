@@ -1,17 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GPDFTools - Unificador de PDFs</title>
+
+    <!-- SEO Primário -->
+    <title>Juntar PDF Grátis e Online — GPDFTools</title>
+    <meta
+      name="description"
+      content="Una múltiplos arquivos PDF em um único documento de forma gratuita, rápida e segura. Sem envio para servidores — o processamento é feito 100% no seu navegador."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://gpdftools.com/pdf-merge.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gpdftools.com/pdf-merge.html" />
+    <meta property="og:title" content="Juntar PDF Grátis — GPDFTools" />
+    <meta
+      property="og:description"
+      content="Combine centenas de PDFs em um único arquivo. Processamento 100% local, sem upload, sem riscos."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Juntar PDF Grátis — GPDFTools" />
+    <meta
+      name="twitter:description"
+      content="Una arquivos PDF sem enviar nada para a internet. Grátis e seguro."
+    />
+
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
+    <div id="nav-placeholder"></div>
+
     <div class="page-container">
-      <header>
-        <h1>GPDF<span>Tools</span></h1>
-        <p>Gerenciamento de PDF simples, rápido e 100% seguro</p>
-      </header>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        Processamento 100% local — seus arquivos nunca saem do seu dispositivo
+      </div>
 
       <div id="loaderOverlay" class="overlay">
         <div class="loader-content">
@@ -62,8 +92,19 @@
         </div>
         <div id="statusUpdate"></div>
       </div>
+
+      <footer>
+        <p>
+          Ao contrário de outros sites, nós
+          <strong>não fazemos cópias e não recebemos seus arquivos</strong> em
+          nossos sistemas. A manipulação dos PDFs acontece apenas na memória do
+          seu próprio aparelho, garantindo sigilo total das suas informações.
+        </p>
+      </footer>
     </div>
+
     <script src="./assets/js/lib/pdf-lib.min.js"></script>
     <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/nav.js"></script>
   </body>
 </html>

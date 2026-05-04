@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPDFTools - Dividir PDF</title>
+    <meta
+      name="description"
+      content="Extraia páginas específicas de um PDF e gere um novo documento instantaneamente, de forma 100% segura no seu navegador."
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div class="page-container">
+      <header>
+        <h1>GPDF<span>Tools</span></h1>
+        <p>Gerenciamento de PDF simples, rápido e 100% seguro</p>
+      </header>
+
+      <div id="loaderOverlay" class="overlay">
+        <div class="loader-content">
+          <h3>Gerando PDF...</h3>
+          <div class="progress-wrapper">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <p id="progressText">0%</p>
+        </div>
+      </div>
+
+      <h2>Qual arquivo você deseja dividir?</h2>
+
+      <!-- Etapa 1: Upload -->
+      <div class="container" id="dropZone">
+        <p class="selector">
+          <span style="text-decoration: underline">Clique aqui</span> ou arraste
+          para selecionar um arquivo PDF
+        </p>
+        <input
+          type="file"
+          id="fileInput"
+          accept="application/pdf"
+          style="display: none"
+        />
+      </div>
+
+      <!-- Etapa 2: Seleção de Páginas (oculta até upload) -->
+      <div id="splitPanel" style="display: none">
+        <div class="split-info">
+          <div class="split-info-text">
+            <p id="fileNameDisplay"></p>
+            <p id="pageCountDisplay"></p>
+          </div>
+          <button id="resetBtn" class="btn-secondary btn-reset">
+            ↩ Trocar Arquivo
+          </button>
+        </div>
+
+        <div class="split-toolbar">
+          <div class="range-input-group">
+            <label for="rangeInput">Intervalo de páginas:</label>
+            <input type="text" id="rangeInput" placeholder="ex: 1-3, 5, 8-10" />
+            <button id="applyRangeBtn" class="btn-secondary">Aplicar</button>
+          </div>
+          <div class="selection-actions">
+            <!-- <button id="selectAllBtn" class="btn-secondary">Selecionar Tudo</button> -->
+            <button id="invertSelBtn" class="btn-secondary">
+              Inverter Seleção
+            </button>
+            <button id="clearSelBtn" class="btn-secondary">
+              Limpar Seleção
+            </button>
+          </div>
+        </div>
+
+        <div id="pagesGrid" class="pages-grid"></div>
+
+        <div id="selectionStatus" class="selection-status"></div>
+
+        <div class="actions">
+          <button id="extractBtn" disabled>Extrair e Baixar PDF</button>
+        </div>
+      </div>
+
+      <div id="statusUpdate"></div>
+    </div>
+
+    <script src="./assets/js/lib/pdf-lib.min.js"></script>
+    <script src="./assets/js/split.js"></script>
+  </body>
+</html>

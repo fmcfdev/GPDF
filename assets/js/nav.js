@@ -126,4 +126,21 @@
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && sidebar.classList.contains("open")) closeMenu();
   });
+
+  // ── Insere o Footer global ──
+  const footerHTML = `
+    <footer>
+      <div class="trust-badge" style="margin-bottom: 0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        Processamento 100% local — seus arquivos nunca saem do dispositivo
+      </div>
+    </footer>
+  `;
+
+  const container = document.querySelector(".page-container, .home-container");
+  if (container) {
+    container.insertAdjacentHTML("beforeend", footerHTML);
+  }
 })();

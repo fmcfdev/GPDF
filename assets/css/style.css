@@ -307,7 +307,11 @@ h2 {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(79,126,248,0.06) 0%, transparent 60%);
+  background: linear-gradient(
+    135deg,
+    rgba(79, 126, 248, 0.06) 0%,
+    transparent 60%
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -392,7 +396,9 @@ h2 {
   font-size: 0.875rem;
   letter-spacing: 0.2px;
   box-shadow: 0 4px 14px var(--primary-glow);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
   display: inline-block;
 }
 
@@ -412,7 +418,6 @@ h2 {
   padding-top: 8px;
   border-top: 1px solid var(--glass-border);
 }
-
 
 /* ── Drop Zone Container ── */
 .container {
@@ -985,7 +990,6 @@ footer p {
     white-space: normal;
   }
 
-
   .actions {
     flex-direction: column;
   }
@@ -1238,7 +1242,11 @@ footer p {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(79,126,248,0.1) 0%, transparent 80%);
+  background: linear-gradient(
+    135deg,
+    rgba(79, 126, 248, 0.1) 0%,
+    transparent 80%
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
@@ -1283,11 +1291,16 @@ footer p {
 }
 
 .sidebar-links a.active {
-  background: linear-gradient(135deg, rgba(79, 126, 248, 0.15), rgba(79, 126, 248, 0.03));
+  background: linear-gradient(
+    135deg,
+    rgba(79, 126, 248, 0.15),
+    rgba(79, 126, 248, 0.03)
+  );
   color: #fff;
-  border-color: var(--primary);
+  border: none;
+  /* border-color: var(--primary); */
   box-shadow:
-    0 0 0 1px var(--primary),
+    0 0 0 1px var(--primary-glow),
     0 4px 16px rgba(79, 126, 248, 0.25);
   font-weight: 600;
 }

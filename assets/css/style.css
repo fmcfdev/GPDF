@@ -161,7 +161,7 @@ header > p {
   border-radius: var(--radius-md);
   margin-bottom: 36px;
   letter-spacing: 0.3px;
-  text-align: left;
+  text-align: center;
   line-height: 1.4;
 }
 

@@ -1031,6 +1031,10 @@ footer {
   .btn-reset {
     width: 100%;
   }
+
+  .home-container {
+    margin-top: 100px;
+  }
 }
 
 /* ══════════════════════════════════════════════

@@ -21,14 +21,37 @@
       property="og:description"
       content="Combine centenas de PDFs em um único arquivo. Processamento 100% local, sem upload, sem riscos."
     />
+    <meta property="og:image" content="https://gpdftools.com/assets/img/og-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Juntar PDF Grátis — GPDFTools" />
     <meta
       name="twitter:description"
       content="Una arquivos PDF sem enviar nada para a internet. Grátis e seguro."
     />
+    <meta name="twitter:image" content="https://gpdftools.com/assets/img/og-preview.png" />
+
+    <!-- JSON-LD: SoftwareApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Juntar PDF — GPDFTools",
+        "url": "https://gpdftools.com/pdf-merge.html",
+        "description": "Una múltiplos arquivos PDF em um único documento de forma gratuita, rápida e segura. Processamento 100% local no navegador.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "inLanguage": "pt-BR",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        }
+      }
+    </script>
 
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
@@ -53,7 +76,7 @@
         </div>
       </div>
 
-      <h2>Quais arquivos você deseja juntar em um único PDF?</h2>
+      <h1>Quais arquivos você deseja juntar em um único PDF?</h1>
 
       <div class="container" id="dropZone">
         <p class="selector">

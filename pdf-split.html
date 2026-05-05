@@ -21,14 +21,37 @@
       property="og:description"
       content="Selecione as páginas que deseja extrair e gere um novo PDF em segundos. 100% local, sem envio de arquivos."
     />
+    <meta property="og:image" content="https://gpdftools.com/assets/img/og-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Dividir PDF Grátis — GPDFTools" />
     <meta
       name="twitter:description"
       content="Extraia páginas de PDFs sem enviar nada para a internet. Grátis e seguro."
     />
+    <meta name="twitter:image" content="https://gpdftools.com/assets/img/og-preview.png" />
+
+    <!-- JSON-LD: SoftwareApplication -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Dividir PDF — GPDFTools",
+        "url": "https://gpdftools.com/pdf-split.html",
+        "description": "Extraia páginas específicas de um PDF e gere um novo documento gratuitamente. Processamento 100% local no navegador.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "inLanguage": "pt-BR",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "BRL"
+        }
+      }
+    </script>
 
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
@@ -53,7 +76,7 @@
         </div>
       </div>
 
-      <h2>Qual arquivo você deseja dividir?</h2>
+      <h1>Qual arquivo você deseja dividir?</h1>
 
       <!-- Etapa 1: Upload -->
       <div class="container" id="dropZone">

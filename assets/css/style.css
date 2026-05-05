@@ -177,6 +177,102 @@ h2 {
   margin: 0 0 16px;
 }
 
+/* ── Home Container ── */
+.home-container {
+  max-width: 960px;
+  width: 100%;
+  animation: fadeSlideUp 0.5s ease both;
+  padding-bottom: 60px;
+}
+
+/* ── Hero Section ── */
+.hero {
+  text-align: center;
+  padding: 48px 0 56px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  color: #86efac;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 50px;
+  margin-bottom: 28px;
+  letter-spacing: 0.3px;
+}
+
+.hero-title {
+  font-size: clamp(2.6rem, 8vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  margin: 0 0 20px;
+  color: var(--text-main);
+}
+
+.hero-title span {
+  background: linear-gradient(90deg, #4f7ef8, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  color: var(--text-muted);
+  max-width: 540px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+.hero-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 32px;
+  backdrop-filter: blur(12px);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.stat strong {
+  font-size: 1.6rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #4f7ef8, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.stat span {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-top: 2px;
+}
+
+.stat-sep {
+  width: 1px;
+  height: 36px;
+  background: var(--glass-border);
+}
+
 /* ── Tools Grid (index) ── */
 .tools-grid {
   display: grid;
@@ -189,7 +285,7 @@ h2 {
   background: var(--glass-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  padding: 36px 30px;
+  padding: 32px 28px;
   border-radius: var(--radius-xl);
   text-decoration: none;
   color: inherit;
@@ -201,56 +297,122 @@ h2 {
     box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  position: relative;
+  overflow: hidden;
   animation: fadeSlideUp 0.5s ease both;
 }
 
-.tool-card:not(.disabled):hover {
-  transform: translateY(-8px);
-  border-color: var(--primary);
-  box-shadow:
-    0 16px 48px rgba(0, 0, 0, 0.5),
-    0 0 24px var(--primary-glow);
+.tool-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(79,126,248,0.06) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
-.tool-card .icon {
-  font-size: 3rem;
-  margin-bottom: 16px;
+.tool-card:hover::before {
+  opacity: 1;
+}
+
+.tool-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 28px var(--primary-glow);
+}
+
+.tool-card-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: rgba(79, 126, 248, 0.2);
+  color: #93c5fd;
+  border: 1px solid rgba(79, 126, 248, 0.35);
+}
+
+.tool-card-badge--new {
+  background: rgba(167, 139, 250, 0.2);
+  color: #c4b5fd;
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.tool-card-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: var(--radius-md);
+  background: rgba(79, 126, 248, 0.12);
+  border: 1px solid rgba(79, 126, 248, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #93c5fd;
+  transition: background 0.3s ease;
+}
+
+.tool-card:hover .tool-card-icon {
+  background: rgba(79, 126, 248, 0.22);
+}
+
+.tool-card-body {
+  flex: 1;
 }
 
 .tool-card h3 {
   margin: 0 0 8px;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: 700;
+  color: var(--text-main);
 }
 
 .tool-card p {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
 }
 
 .btn-access {
   margin-top: 24px;
-  padding: 10px 28px;
-  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  padding: 9px 22px;
+  background: linear-gradient(135deg, var(--primary), #7c6df8);
   color: white;
   border-radius: 50px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.3px;
-  box-shadow: 0 4px 16px var(--primary-glow);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.2px;
+  box-shadow: 0 4px 14px var(--primary-glow);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  display: inline-block;
 }
 
-.badge {
-  margin-top: 24px;
-  padding: 10px 28px;
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-muted);
-  border-radius: 50px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  border: 1px solid var(--glass-border);
+.tool-card:hover .btn-access {
+  box-shadow: 0 6px 20px var(--primary-glow);
+  transform: translateX(2px);
 }
+
+/* ── Home Footer ── */
+.home-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  padding-top: 8px;
+  border-top: 1px solid var(--glass-border);
+}
+
 
 /* ── Drop Zone Container ── */
 .container {
@@ -554,16 +716,18 @@ button:active:not(:disabled) {
   min-height: 18px;
 }
 
-/* ── Footer ── */
+/* ── Footer (páginas de ferramenta) ── */
 footer p {
-  border: solid 1px rgba(79, 126, 248, 0.3);
-  background: rgba(79, 126, 248, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   color: var(--text-muted);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   margin-top: 40px;
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-  line-height: 1.7;
+  padding-top: 20px;
+  border-top: 1px solid var(--glass-border);
+  line-height: 1.6;
 }
 
 /* ══════════════════════════════════════════════
@@ -800,9 +964,27 @@ footer p {
     align-items: flex-start;
   }
 
+  .hero {
+    padding: 28px 0 36px;
+  }
+
+  .hero-stats {
+    padding: 12px 8px;
+    gap: 0;
+  }
+
+  .stat {
+    padding: 0 14px;
+  }
+
+  .stat strong {
+    font-size: 1.2rem;
+  }
+
   header > p {
     white-space: normal;
   }
+
 
   .actions {
     flex-direction: column;

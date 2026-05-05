@@ -35,7 +35,6 @@ const el = {
   imgNameDisplay: document.getElementById("imgNameDisplay"),
   wmOpacity: document.getElementById("wmOpacity"),
   wmRotation: document.getElementById("wmRotation"),
-  wmLayer: document.getElementById("wmLayer"),
   wmPositionRadios: document.querySelectorAll('input[name="wmPosition"]'),
   fontPreview: document.getElementById("fontPreview"),
   wmFontSize: document.getElementById("wmFontSize"),
@@ -332,7 +331,6 @@ el.processBtn.addEventListener("click", async () => {
     // Pegar configurações
     const opacity = parseFloat(el.wmOpacity.value);
     const rotationAngle = parseInt(el.wmRotation.value);
-    const layer = el.wmLayer.value;
     let position = "middle-center";
     el.wmPositionRadios.forEach((r) => {
       if (r.checked) position = r.value;
@@ -482,17 +480,6 @@ el.processBtn.addEventListener("click", async () => {
           opacity: opacity,
           rotate: degrees(finalRotationAngle),
         });
-      }
-
-      // Hack para jogar a marca d'água para o fundo (Underlay)
-      if (layer === "bottom") {
-        const contents = page.node.Contents();
-        if (contents && contents.elements) {
-          // O último elemento adicionado é o nosso drawText/drawImage
-          const watermarkStream = contents.elements.pop();
-          // Coloca no começo para ser desenhado primeiro
-          contents.elements.unshift(watermarkStream);
-        }
       }
 
       updateProgress(10 + Math.floor((i / pagesToProcess.length) * 70));

@@ -1440,3 +1440,9 @@ footer p {
   -webkit-appearance: none;
   margin: 0;
 }
+
+/* ── Correção visual para os Options do Select ── */
+select option {
+  background-color: #1e293b; /* Cor do var(--bg-main) ou similar escuro */
+  color: #f1f5f9; /* Cor do var(--text-main) */
+}

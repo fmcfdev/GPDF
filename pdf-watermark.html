@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Primário -->
+    <title>Adicionar Marca d'água em PDF Grátis e Online — GPDFTools</title>
+    <meta
+      name="description"
+      content="Adicione marca d'água (texto ou imagem) em seus PDFs gratuitamente. Escolha a posição, transparência, fonte e páginas desejadas. Processamento 100% local, sem upload."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://gpdftools.com/pdf-watermark.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://gpdftools.com/pdf-watermark.html"
+    />
+    <meta
+      property="og:title"
+      content="Adicionar Marca d'água em PDF — GPDFTools"
+    />
+    <meta
+      property="og:description"
+      content="Proteja seus PDFs com marca d'água de texto ou imagem. 100% local, sem envio de arquivos para servidores."
+    />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Adicionar Marca d'água em PDF — GPDFTools"
+    />
+    <meta
+      name="twitter:description"
+      content="Coloque marcas d'água nos seus PDFs sem enviar nada para a internet. Grátis e seguro."
+    />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div id="nav-placeholder"></div>
+
+    <div class="page-container">
+      <div class="trust-badge">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        Processamento 100% local — seus arquivos nunca saem do seu dispositivo
+      </div>
+
+      <div id="loaderOverlay" class="overlay">
+        <div class="loader-content">
+          <h3>Gerando PDF...</h3>
+          <div class="progress-wrapper">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <p id="progressText">0%</p>
+        </div>
+      </div>
+
+      <h2>Adicionar Marca d'água</h2>
+
+      <!-- Etapa 1: Upload -->
+      <div class="container" id="dropZone">
+        <p class="selector">
+          <span style="text-decoration: underline">Clique aqui</span> ou arraste
+          para selecionar um arquivo PDF
+        </p>
+        <input
+          type="file"
+          id="fileInput"
+          accept="application/pdf"
+          style="display: none"
+        />
+      </div>
+
+      <!-- Etapa 2: Configuração e Seleção de Páginas -->
+      <div id="watermarkPanel" style="display: none">
+        <div class="split-info">
+          <div class="split-info-text">
+            <p id="fileNameDisplay"></p>
+            <p id="pageCountDisplay"></p>
+          </div>
+          <button id="resetBtn" class="btn-secondary btn-reset">
+            ↩ Trocar Arquivo
+          </button>
+        </div>
+
+        <div class="watermark-config-grid">
+          <!-- Coluna Esquerda: Configurações de Conteúdo e Aparência -->
+          <div class="config-section">
+            <h3>1. Conteúdo da Marca d'água</h3>
+
+            <div class="tabs">
+              <button class="tab-btn active" data-target="text-tab">
+                Texto
+              </button>
+              <button class="tab-btn" data-target="image-tab">Imagem</button>
+            </div>
+
+            <div id="text-tab" class="tab-content active">
+              <div class="form-group">
+                <label for="wmText">Texto (Máx. 100 caracteres):</label>
+                <input
+                  type="text"
+                  id="wmText"
+                  maxlength="100"
+                  placeholder="Ex: CONFIDENCIAL"
+                />
+              </div>
+              <div class="form-group">
+                <label>Estilo da Fonte:</label>
+                <div class="segmented-control">
+                  <input
+                    type="radio"
+                    name="wmFont"
+                    id="fontSans"
+                    value="helvetica"
+                    checked
+                  />
+                  <label for="fontSans">Sem Serifa</label>
+
+                  <input
+                    type="radio"
+                    name="wmFont"
+                    id="fontSerif"
+                    value="times"
+                  />
+                  <label for="fontSerif">Com Serifa</label>
+                </div>
+                <div id="fontPreview" class="font-preview helvetica-preview">
+                  O texto de marca d'água ficará assim
+                </div>
+              </div>
+              <div class="form-group font-size-group">
+                <label for="wmFontSize" class="font-size-label" style="margin-bottom: 0;">Tamanho da Fonte (px):</label>
+                <input
+                  type="range"
+                  id="wmFontSize"
+                  min="12"
+                  max="100"
+                  value="42"
+                  class="font-slider"
+                />
+                <div class="custom-number-input">
+                  <button type="button" id="fontSizeUp">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                  </button>
+                  <input type="number" id="wmFontSizeNumber" min="12" max="100" value="42" />
+                  <button type="button" id="fontSizeDown">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="image-tab" class="tab-content">
+              <div class="form-group">
+                <label>Imagem (Máx. 2MB, PNG/JPEG):</label>
+                <div class="file-upload-wrapper">
+                  <button id="imgSelectBtn" class="btn-secondary">
+                    Escolher Imagem
+                  </button>
+                  <span id="imgNameDisplay">Nenhuma imagem selecionada</span>
+                  <input
+                    type="file"
+                    id="imgInput"
+                    accept="image/png, image/jpeg"
+                    style="display: none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <h3>2. Aparência</h3>
+            <div class="form-group">
+              <label for="wmOpacity">Transparência:</label>
+              <select id="wmOpacity">
+                <option value="1">Sem transparência (0%)</option>
+                <option value="0.75">25% Transparente</option>
+                <option value="0.5" selected>50% Transparente</option>
+                <option value="0.25">75% Transparente</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="wmRotation">Ângulo:</label>
+              <select id="wmRotation">
+                <option value="0" selected>0º (Horizontal)</option>
+                <option value="45">45º (Diagonal)</option>
+                <option value="90">90º (Vertical)</option>
+                <option value="180">180º (Invertido)</option>
+                <option value="270">270º (Vertical Invertido)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="wmLayer">Camada:</label>
+              <select id="wmLayer">
+                <option value="top" selected>Por cima do conteúdo</option>
+                <option value="bottom">Por trás do conteúdo</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Coluna Direita: Posicionamento -->
+          <div class="config-section">
+            <h3>3. Posição na Página</h3>
+            <div class="position-grid-wrapper">
+              <div class="position-grid">
+                <label class="pos-cell"
+                  ><input
+                    type="radio"
+                    name="wmPosition"
+                    value="top-left" /><span></span
+                ></label>
+                <label class="pos-cell"
+                  ><input
+                    type="radio"
+                    name="wmPosition"
+                    value="top-center" /><span></span
+                ></label>
+                <label class="pos-cell"
+                  ><input
+                    type="radio"
+                    name="wmPosition"
+                    value="top-right" /><span></span
+                ></label>
+                <label class="pos-cell"
+                  ><input
+                    type="radio"
+                    name="wmPosition"
+                    value="middle-left" /><span></span
+                ></label>
+                <label class="pos-cell"
+                  ><input
+                    type="radio"
+                    name="wmPosition"
+                    value="middle-center"
+                    checked /><span></span
+                ></label>
+                <label class="pos-cell"
+                  ><input
+                    type="radio"
+                    name="wmPosition"
+                    value="middle-right" /><span></span
+                ></label>
+                <label class="pos-cell"
+                  ><input
+                    type="radio"
+                    name="wmPosition"
+                    value="bottom-left" /><span></span
+                ></label>
+                <label class="pos-cell"
+                  ><input
+                    type="radio"
+                    name="wmPosition"
+                    value="bottom-center" /><span></span
+                ></label>
+                <label class="pos-cell"
+                  ><input
+                    type="radio"
+                    name="wmPosition"
+                    value="bottom-right" /><span></span
+                ></label>
+              </div>
+            </div>
+
+            <h3 style="margin-top: 32px">4. Selecione as Páginas</h3>
+            <div class="split-toolbar" style="margin-top: 10px">
+              <div class="range-input-group">
+                <label for="rangeInput">Intervalo:</label>
+                <input
+                  type="text"
+                  id="rangeInput"
+                  placeholder="ex: 1-3, 5, 8-10"
+                />
+                <button id="applyRangeBtn" class="btn-secondary">
+                  Aplicar
+                </button>
+              </div>
+              <div
+                class="selection-actions"
+                style="
+                  margin-top: 10px;
+                  width: 100%;
+                  justify-content: space-between;
+                "
+              >
+                <button
+                  id="invertSelBtn"
+                  class="btn-secondary"
+                  style="flex: 1; margin-right: 8px"
+                >
+                  Inverter
+                </button>
+                <button id="clearSelBtn" class="btn-secondary" style="flex: 1">
+                  Limpar
+                </button>
+              </div>
+            </div>
+
+            <div
+              id="pagesGrid"
+              class="pages-grid"
+              style="max-height: 200px"
+            ></div>
+
+            <div id="selectionStatus" class="selection-status"></div>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="processBtn" disabled>
+            Adicionar Marca d'água e Baixar
+          </button>
+        </div>
+      </div>
+
+      <div id="statusUpdate"></div>
+
+      <footer>
+        <p>
+          Ao contrário de outros sites, nós
+          <strong>não fazemos cópias e não recebemos seus arquivos</strong> em
+          nossos sistemas. A manipulação dos PDFs acontece apenas na memória do
+          seu próprio aparelho, garantindo sigilo total das suas informações.
+        </p>
+      </footer>
+    </div>
+
+    <script src="./assets/js/lib/pdf-lib.min.js"></script>
+    <script src="./assets/js/watermark.js"></script>
+    <script src="./assets/js/nav.js"></script>
+  </body>
+</html>

@@ -7,6 +7,7 @@
     { href: "./index.html", label: "Home", icon: "🏠", match: ["", "index.html"] },
     { href: "./pdf-merge.html", label: "Juntar PDF", icon: "📄", match: ["pdf-merge.html"] },
     { href: "./pdf-split.html", label: "Dividir PDF", icon: "✂️", match: ["pdf-split.html"] },
+    { href: "./pdf-watermark.html", label: "Marca d'água", icon: "🔏", match: ["pdf-watermark.html"] },
   ];
 
   // Detecta a página atual pelo nome do arquivo na URL

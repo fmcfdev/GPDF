@@ -151,16 +151,23 @@ header > p {
 .trust-badge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   background: rgba(34, 197, 94, 0.12);
   border: 1px solid rgba(34, 197, 94, 0.3);
   color: #86efac;
   font-size: 0.78rem;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 50px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
   margin-bottom: 36px;
   letter-spacing: 0.3px;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.trust-badge strong {
+  font-weight: 700;
+  color: #bbf7d0;
 }
 
 .trust-badge svg {

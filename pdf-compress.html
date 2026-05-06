@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Primário -->
+    <title>Comprimir PDF Grátis e Online — GPDFTools</title>
+    <meta
+      name="description"
+      content="Reduza o tamanho de seus PDFs gratuitamente. Escolha o nível de compressão e otimize seus arquivos para envio por e-mail ou web. Processamento 100% local ou servidor seguro."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://gpdftools.com/pdf-compress.html" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://gpdftools.com/pdf-compress.html"
+    />
+    <meta
+      property="og:title"
+      content="Comprimir PDF Online — GPDFTools"
+    />
+    <meta
+      property="og:description"
+      content="Diminua o tamanho do seu PDF sem perder qualidade. 100% local, rápido e seguro."
+    />
+    <meta property="og:image" content="https://gpdftools.com/assets/img/og-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Comprimir PDF Online — GPDFTools"
+    />
+    <meta
+      name="twitter:description"
+      content="Reduza o tamanho do seu PDF sem enviar para a internet. Grátis e seguro."
+    />
+    <meta name="twitter:image" content="https://gpdftools.com/assets/img/og-preview.png" />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <div id="nav-placeholder"></div>
+
+    <div class="page-container">
+      
+      <!-- Loader Overlay -->
+      <div id="loaderOverlay" class="overlay">
+        <div class="loader-content">
+          <h3 id="loaderTitle">Comprimindo PDF...</h3>
+          <div class="progress-wrapper">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <p id="progressText">Isso pode levar alguns segundos...</p>
+        </div>
+      </div>
+
+      <!-- Modal de Sugestão de Servidor -->
+      <div id="serverSuggestionModal" class="overlay">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3>Arquivo Grande Detectado</h3>
+            <button class="modal-close" id="closeModalBtn">×</button>
+          </div>
+          <div class="modal-body">
+            <p>Este arquivo possui mais de <strong>30MB</strong>. O processamento no seu navegador pode ser muito lento ou até falhar dependendo da memória disponível.</p>
+            <p>Recomendamos usar nosso processamento em servidor para uma compressão ultra-rápida e segura.</p>
+          </div>
+          <div class="modal-footer">
+            <button id="processLocalBtn" class="btn-secondary">Processar no Navegador (Lento)</button>
+            <button id="processServerBtn" class="btn-primary" disabled title="Recurso em desenvolvimento">
+              Enviar para o Servidor (Recomendado)
+              <span style="display: block; font-size: 0.7em; opacity: 0.8;">Em breve</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h1>Comprimir PDF</h1>
+      <p class="hero-sub" style="margin-bottom: 30px;">Reduza o tamanho do seu arquivo mantendo a melhor qualidade possível.</p>
+
+      <!-- Etapa 1: Upload -->
+      <div class="container" id="dropZone">
+        <p class="selector">
+          <span style="text-decoration: underline">Clique aqui</span> ou arraste
+          para selecionar um arquivo PDF
+        </p>
+        <input
+          type="file"
+          id="fileInput"
+          accept="application/pdf"
+          style="display: none"
+        />
+      </div>
+
+      <!-- Etapa 2: Configuração -->
+      <div id="compressPanel" style="display: none">
+        <div class="split-info">
+          <div class="split-info-text">
+            <p id="fileNameDisplay"></p>
+            <p id="fileSizeDisplay"></p>
+          </div>
+          <button id="resetBtn" class="btn-secondary btn-reset">
+            ↩ Trocar Arquivo
+          </button>
+        </div>
+
+        <div class="config-section">
+          <h3>Nível de Compressão</h3>
+          <div class="compression-levels">
+            
+            <label class="level-card">
+              <input type="radio" name="compressionLevel" value="high" checked>
+              <div class="level-card-content">
+                <div class="level-title">Alta Compressão</div>
+                <div class="level-desc">Menor tamanho, qualidade de imagem reduzida (72 DPI).</div>
+                <div class="level-badge">Recomendado para Web</div>
+              </div>
+            </label>
+
+            <label class="level-card">
+              <input type="radio" name="compressionLevel" value="medium">
+              <div class="level-card-content">
+                <div class="level-title">Média Compressão</div>
+                <div class="level-desc">Equilíbrio ideal entre tamanho e qualidade (150 DPI).</div>
+                <div class="level-badge">Ideal para E-mail</div>
+              </div>
+            </label>
+
+            <label class="level-card">
+              <input type="radio" name="compressionLevel" value="low">
+              <div class="level-card-content">
+                <div class="level-title">Baixa Compressão</div>
+                <div class="level-desc">Alta qualidade de imagem, menor redução de tamanho (300 DPI).</div>
+                <div class="level-badge">Ideal para Impressão</div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+        <div class="actions" style="margin-top: 40px;">
+          <button id="processBtn" class="btn-primary">
+            Comprimir PDF e Baixar
+          </button>
+        </div>
+      </div>
+
+      <div id="statusUpdate"></div>
+
+    </div>
+
+    <script src="./assets/js/compress.js"></script>
+    <script src="./assets/js/nav.js"></script>
+  </body>
+</html>

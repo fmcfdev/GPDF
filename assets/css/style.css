@@ -12,14 +12,15 @@
   --primary-hover: #3563e9;
   --primary-glow: rgba(79, 126, 248, 0.4);
   --white: #ffffff;
-  --dark-navy: #0f172a;
+  --bg-body: #0f172a;
   --deep-blue: #191941;
 
-  /* Fundos */
+  /* Fundos Adaptáveis */
   --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
   --glass-bg: rgba(255, 255, 255, 0.06);
   --glass-bg-solid: rgba(255, 255, 255, 0.1);
   --glass-border: rgba(255, 255, 255, 0.12);
+  --nav-bg: rgba(15, 23, 42, 0.7);
 
   /* Cards do input */
   --input-bg: rgba(255, 255, 255, 0.08);
@@ -46,6 +47,34 @@
   --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
   --nav-height: 62px;
+}
+
+[data-theme="light"] {
+  --bg-body: #f8fafc;
+  --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  --glass-bg: rgba(0, 0, 0, 0.03);
+  --glass-bg-solid: rgba(0, 0, 0, 0.05);
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --nav-bg: rgba(255, 255, 255, 0.8);
+
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-accent: #4f7ef8;
+
+  --input-bg: rgba(0, 0, 0, 0.04);
+  --input-border: rgba(0, 0, 0, 0.1);
+
+  --shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+  --shadow-sm: 0 4px 16px rgba(15, 23, 42, 0.05);
+
+  /* Ajustes de contraste para estados no Light */
+  --success-bg: rgba(34, 197, 94, 0.1);
+  --success-text: #166534;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --danger-text: #991b1b;
+  
+  --deep-blue: #f1f5f9;
+  --white: #0f172a; /* Inverte o contraste para alguns elementos */
 }
 
 /* ── Reset ── */
@@ -86,7 +115,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: var(--bg-body);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -479,14 +508,35 @@ h2 {
   width: 58px;
   height: 58px;
   border-radius: var(--radius-md);
-  background: rgba(79, 126, 248, 0.12);
+  background: rgba(79, 126, 248, 0.1);
   border: 1px solid rgba(79, 126, 248, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  color: #93c5fd;
-  transition: background 0.3s ease;
+  color: var(--primary); /* Cor padrão */
+  transition: all 0.3s ease;
+}
+
+/* Aplicando degradê nos ícones dos cards de forma segura */
+.tool-card-icon svg path,
+.tool-card-icon svg line,
+.tool-card-icon svg circle,
+.tool-card-icon svg polyline {
+  stroke: var(--primary); /* Fallback */
+  stroke: url(#iconGradient);
+}
+
+.tool-card-icon svg {
+  filter: drop-shadow(0 2px 4px rgba(79, 126, 248, 0.15));
+}
+
+[data-theme="light"] .tool-card-icon {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .tool-card:hover .tool-card-icon {
@@ -1086,6 +1136,61 @@ footer {
    Responsividade Mobile
 ══════════════════════════════════════════════ */
 
+/* ── Theme Toggle ── */
+.theme-toggle {
+  width: 42px;
+  height: 42px;
+  background: var(--glass-bg-solid);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  color: var(--text-main);
+  transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  display: block; /* Garante que o SVG ocupe espaço */
+  stroke: currentColor !important; /* Força o uso da cor definida no pai */
+  fill: none;
+}
+
+/* Lógica de ícones: Padrão Dark mostra Sol, Modo Light mostra Lua */
+.theme-toggle .sun-icon {
+  display: block;
+}
+.theme-toggle .moon-icon {
+  display: none;
+}
+
+[data-theme="light"] .theme-toggle .sun-icon {
+  display: none;
+}
+[data-theme="light"] .theme-toggle .moon-icon {
+  display: block;
+  stroke-width: 2.5px; /* Aumenta um pouco o peso da lua para melhor visibilidade */
+}
+
+/* Ajuste de cor do ícone para garantir visibilidade */
+.theme-toggle {
+  color: var(--text-main);
+}
+
+[data-theme="light"] .theme-toggle {
+  color: #0f172a !important; /* Cor sólida e escura no Light */
+}
+
 /* ══════════════════════════════════════════════
    Navegação Global
 ══════════════════════════════════════════════ */
@@ -1102,7 +1207,7 @@ footer {
   align-items: center;
   justify-content: space-between;
   padding: 0 24px;
-  background: rgba(15, 23, 42, 0.7);
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--glass-border);
@@ -1209,7 +1314,7 @@ footer {
   max-width: 85vw;
   height: 100dvh;
   z-index: 700;
-  background: rgba(15, 23, 42, 0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
   border-left: 1px solid var(--glass-border);
@@ -1241,6 +1346,11 @@ footer {
   color: var(--text-muted);
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+[data-theme="light"] .sidebar-title {
+  color: var(--primary);
+  opacity: 0.8;
 }
 
 .sidebar-close {
@@ -1366,6 +1476,18 @@ footer {
 
 .sidebar-links a.active::before {
   opacity: 1;
+}
+
+[data-theme="light"] .sidebar-links a:hover {
+  color: var(--primary);
+  background: rgba(79, 126, 248, 0.08);
+  border-color: var(--primary);
+}
+
+[data-theme="light"] .sidebar-links a.active {
+  background: rgba(79, 126, 248, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(79, 126, 248, 0.2);
 }
 
 /* ── Rodapé da Sidebar ── */
@@ -1804,7 +1926,7 @@ select option {
 .modal-content {
   width: 90%;
   max-width: 500px;
-  background: #0f172a;
+  background: var(--bg-body);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 0;
@@ -1979,7 +2101,7 @@ select option {
 .site-footer {
   width: 100%;
   margin-top: 80px;
-  background: rgba(15, 23, 42, 0.6);
+  background: var(--nav-bg);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--glass-border);
   padding: 60px 0 30px;

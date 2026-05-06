@@ -77,6 +77,31 @@ body {
   flex: 1; /* Faz o conteúdo crescer e empurrar o footer para o fundo */
 }
 
+/* ── Barra de Rolagem Customizada (Inset / Angular) ── */
+::-webkit-scrollbar {
+  width: 12px; /* Aumentei um pouco para o padding ficar visível */
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff; /* Fundo branco fixo */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #191941; /* Azul profundo */
+  border: 1px solid transparent; /* Isso cria o efeito de "padding" */
+  background-clip: padding-box; /* Garante que a cor não pinte a borda */
+  border-radius: 0; /* Mantido angular conforme solicitado */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #6f72f8; /* Azul vibrante e moderno no hover */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: auto;
+}
+
 /* ── Animações globais ── */
 @keyframes fadeSlideUp {
   from {

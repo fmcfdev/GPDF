@@ -4,12 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Avisos Legais e Licenças — GPDFTools</title>
-    <meta name="description" content="Licenças de código aberto e softwares de terceiros utilizados no GPDFTools." />
+    <meta
+      name="description"
+      content="Licenças de código aberto e softwares de terceiros utilizados no GPDFTools."
+    />
     <link rel="stylesheet" href="./assets/css/style.css" />
     <style>
       .legal-container {
         max-width: 800px;
-        margin: 120px auto 60px;
+        margin: 40px auto 60px;
         padding: 0 24px;
         color: var(--text-muted);
         line-height: 1.7;
@@ -58,16 +61,37 @@
 
     <main class="legal-container">
       <h1>Avisos Legais e Licenças</h1>
-      <p>O <strong>GPDFTools</strong> é construído utilizando diversas tecnologias de código aberto (Open Source). Agradecemos profundamente à comunidade de desenvolvedores por disponibilizarem essas ferramentas incríveis.</p>
-      
-      <p>Abaixo, listamos as bibliotecas de terceiros utilizadas neste projeto, juntamente com suas respectivas licenças e avisos de direitos autorais, em conformidade com as exigências legais de distribuição.</p>
+      <p>
+        O <strong>GPDFTools</strong> é construído utilizando diversas
+        tecnologias de código aberto (Open Source). Agradecemos profundamente à
+        comunidade de desenvolvedores por disponibilizarem essas ferramentas
+        incríveis.
+      </p>
+
+      <p>
+        Abaixo, listamos as bibliotecas de terceiros utilizadas neste projeto,
+        juntamente com suas respectivas licenças e avisos de direitos autorais,
+        em conformidade com as exigências legais de distribuição.
+      </p>
 
       <h2>Bibliotecas Utilizadas</h2>
 
       <h3>pdf-lib</h3>
-      <p>Utilizada para a manipulação, leitura e criação de arquivos PDF diretamente no navegador.</p>
+      <p>
+        Utilizada para a manipulação, leitura e criação de arquivos PDF
+        diretamente no navegador.
+      </p>
       <p><strong>Licença:</strong> MIT License</p>
-      <p><strong>Site Oficial:</strong> <a href="https://pdf-lib.js.org/" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">pdf-lib.js.org</a></p>
+      <p>
+        <strong>Site Oficial:</strong>
+        <a
+          href="https://pdf-lib.js.org/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: var(--primary); text-decoration: none"
+          >pdf-lib.js.org</a
+        >
+      </p>
 
       <div class="license-box">
         <pre>
@@ -96,10 +120,31 @@ SOFTWARE.
       </div>
 
       <h3>Ghostscript (WASM Port)</h3>
-      <p>Utilizado como motor de compressão avançada para reduzir o tamanho dos arquivos PDF diretamente no seu dispositivo.</p>
+      <p>
+        Utilizado como motor de compressão avançada para reduzir o tamanho dos
+        arquivos PDF diretamente no seu dispositivo.
+      </p>
       <p><strong>Licença:</strong> GNU AGPLv3</p>
-      <p><strong>Site Oficial (Artifex):</strong> <a href="https://ghostscript.com/" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">ghostscript.com</a></p>
-      <p><strong>Port utilizado (@jspawn):</strong> <a href="https://github.com/jspawn/ghostscript-wasm" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: none;">github.com/jspawn/ghostscript-wasm</a></p>
+      <p>
+        <strong>Site Oficial (Artifex):</strong>
+        <a
+          href="https://ghostscript.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: var(--primary); text-decoration: none"
+          >ghostscript.com</a
+        >
+      </p>
+      <p>
+        <strong>Port utilizado (@jspawn):</strong>
+        <a
+          href="https://github.com/jspawn/ghostscript-wasm"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="color: var(--primary); text-decoration: none"
+          >github.com/jspawn/ghostscript-wasm</a
+        >
+      </p>
 
       <div class="license-box">
         <pre>
@@ -124,7 +169,6 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 Aviso: O GPDFTools executa o binário não modificado do Ghostscript via WebAssembly no navegador do usuário. O código-fonte original do Ghostscript pode ser obtido no site oficial da Artifex.
         </pre>
       </div>
-
     </main>
 
     <script src="./assets/js/nav.js"></script>

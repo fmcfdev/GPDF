@@ -468,8 +468,9 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(6px);
+  background: rgba(1, 11, 32, 0.6);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(8px);
   display: none;
   justify-content: center;
   align-items: center;
@@ -1774,11 +1775,11 @@ select option {
 .modal-content {
   width: 90%;
   max-width: 500px;
-  background: #1e1b4b; /* Tom mais escuro para destaque */
+  background: #0f172a; /* Tom mais escuro para destaque */
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 0;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
   overflow: hidden;
   animation: fadeSlideUp 0.3s ease-out;
 }
@@ -1786,6 +1787,7 @@ select option {
 .modal-header {
   padding: 20px 24px;
   border-bottom: 1px solid var(--glass-border);
+  background: var(--bg-gradient);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1814,7 +1816,7 @@ select option {
 }
 
 .modal-body p {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   font-size: 0.95rem;
   color: var(--text-muted);
 }
@@ -1825,9 +1827,40 @@ select option {
 
 .modal-footer {
   padding: 20px 24px;
-  background: rgba(255, 255, 255, 0.03);
   display: flex;
   gap: 12px;
+}
+
+/* Responsividade do Modal */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 95%;
+    margin: 10px;
+  }
+
+  .modal-header, 
+  .modal-body, 
+  .modal-footer {
+    padding: 16px 20px;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-footer .btn-primary,
+  .modal-footer .btn-secondary {
+    width: 100%;
+    margin: 0;
+    order: 1;
+  }
+
+  /* Garante que o botão primário (Recomendado) venha primeiro se desejar, 
+     ou mantém a ordem lógica. Aqui vamos manter a ordem mas full width. */
+  .modal-footer #processServerBtn {
+    order: 0; /* Coloca o recomendado no topo no mobile se quiser dar destaque */
+  }
 }
 
 .modal-footer button {

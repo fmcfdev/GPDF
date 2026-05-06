@@ -45,55 +45,55 @@
   <body>
     <div id="nav-placeholder"></div>
 
-    <div class="page-container">
-      <!-- Loader Overlay -->
-      <div id="loaderOverlay" class="overlay">
-        <div class="loader-content">
-          <h3 id="loaderTitle">Comprimindo PDF...</h3>
-          <div class="progress-wrapper">
-            <div id="progressBar" class="progress-bar"></div>
-          </div>
-          <p id="progressText">Isso pode levar alguns segundos...</p>
+    <!-- Loader Overlay (Fora do container para pegar a tela toda) -->
+    <div id="loaderOverlay" class="overlay">
+      <div class="loader-content">
+        <h3 id="loaderTitle">Comprimindo PDF...</h3>
+        <div class="progress-wrapper">
+          <div id="progressBar" class="progress-bar"></div>
         </div>
+        <p id="progressText">Isso pode levar alguns segundos...</p>
       </div>
+    </div>
 
-      <!-- Modal de Sugestão de Servidor -->
-      <div id="serverSuggestionModal" class="overlay">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3>Arquivo Grande Detectado</h3>
-            <button class="modal-close" id="closeModalBtn">×</button>
-          </div>
-          <div class="modal-body">
-            <p>
-              Este arquivo possui mais de <strong>30MB</strong>. O processamento
-              no seu navegador pode ser muito lento ou até falhar dependendo da
-              memória disponível.
-            </p>
-            <p>
-              Recomendamos usar nosso processamento em servidor para uma
-              compressão ultra-rápida e segura.
-            </p>
-          </div>
-          <div class="modal-footer">
-            <button id="processLocalBtn" class="btn-secondary">
-              Processar no Navegador (Lento)
-            </button>
-            <button
-              id="processServerBtn"
-              class="btn-primary"
-              disabled
-              title="Recurso em desenvolvimento"
+    <!-- Modal de Sugestão de Servidor (Fora do container para pegar a tela toda) -->
+    <div id="serverSuggestionModal" class="overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>Arquivo Grande Detectado</h3>
+          <button class="modal-close" id="closeModalBtn">×</button>
+        </div>
+        <div class="modal-body">
+          <p>
+            Este arquivo possui mais de <strong>100MB</strong>. O processamento
+            no seu navegador pode ser muito lento ou até falhar dependendo da
+            memória disponível.
+          </p>
+          <p>
+            Recomendamos usar nosso processamento em servidor para uma
+            compressão ultra-rápida e segura.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button id="processLocalBtn" class="btn-secondary">
+            Processar no Navegador (Lento)
+          </button>
+          <button
+            id="processServerBtn"
+            class="btn-primary"
+            disabled
+            title="Recurso em desenvolvimento"
+          >
+            Enviar para o Servidor (Recomendado)
+            <span style="display: block; font-size: 0.7em; opacity: 0.8"
+              >Em breve</span
             >
-              Enviar para o Servidor (Recomendado)
-              <span style="display: block; font-size: 0.7em; opacity: 0.8"
-                >Em breve</span
-              >
-            </button>
-          </div>
+          </button>
         </div>
       </div>
+    </div>
 
+    <div class="page-container">
       <h1>Comprimir PDF</h1>
       <p class="hero-sub" style="margin-bottom: 30px">
         Reduza o tamanho do seu arquivo mantendo a melhor qualidade possível.

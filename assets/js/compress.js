@@ -23,7 +23,6 @@
   const compressedSizeResult = document.getElementById("compressedSizeResult");
   const savingsPercentage = document.getElementById("savingsPercentage");
   const downloadAgainBtn = document.getElementById("downloadAgainBtn");
-  const startOverBtn = document.getElementById("startOverBtn");
 
   // Modal de Servidor
   const serverModal = document.getElementById("serverSuggestionModal");
@@ -105,7 +104,6 @@
   }
 
   downloadAgainBtn.addEventListener("click", downloadBlob);
-  startOverBtn.addEventListener("click", resetApp);
 
   function showConfigPanel() {
     dropZone.style.display = "none";
@@ -246,13 +244,15 @@
       compressedSizeResult.textContent = formatBytes(compressedSize);
       savingsPercentage.textContent = `${Math.max(0, savings).toFixed(0)}%`;
 
-      // Troca de painéis
-      compressPanel.style.display = "none";
+      // Exibe o painel de resultado integrado (abaixo das configurações)
       resultPanel.style.display = "block";
       loaderOverlay.style.display = "none";
 
       // Dispara o download inicial
       downloadBlob();
+
+      // Scroll suave para o resultado
+      resultPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
       // Limpeza do FS virtual
       module.FS.unlink(inputName);

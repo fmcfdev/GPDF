@@ -69,7 +69,8 @@ body {
 }
 
 /* Containers principais precisam de largura total ou max-width */
-.home-container, .page-container {
+.home-container,
+.page-container {
   width: 100%;
   max-width: 1200px;
   padding: 0 15px 50px;
@@ -2119,15 +2120,17 @@ select option {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1.5fr;
-  gap: 60px;
-  margin-bottom: 50px;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 80px;
+  margin-bottom: 24px;
+  align-items: start;
 }
 
 .footer-col h4 {
   color: var(--text-main);
   font-size: 1rem;
   font-weight: 700;
+  margin-top: 0;
   margin-bottom: 24px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -2135,7 +2138,37 @@ select option {
 
 .footer-col.brand .footer-logo {
   height: 28px;
+  margin-top: 0;
   margin-bottom: 20px;
+  display: block;
+}
+
+.footer-logo-link {
+  display: inline-block;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.footer-logo-link:hover {
+  opacity: 0.8;
+}
+
+/* Alinhamento para Institucional (Bloco à direita, texto à esquerda) */
+.footer-col.links {
+  justify-self: end; /* Empurra o bloco todo para a direita */
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footer-col.links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Garante que os links alinhem à esquerda */
 }
 
 .footer-col.brand p {
@@ -2214,13 +2247,26 @@ select option {
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 32px;
+    text-align: left; /* Garante texto à esquerda no mobile */
   }
   .footer-col.brand {
     grid-column: span 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Logo à esquerda */
+  }
+  .footer-col.links {
+    justify-self: start; /* Bloco Institucional à esquerda */
+    align-items: flex-start;
+    text-align: left;
+  }
+  .footer-col.links ul {
+    align-items: flex-start;
   }
   .footer-bottom {
     flex-direction: column;
     gap: 16px;
+    align-items: center;
     text-align: center;
   }
 }

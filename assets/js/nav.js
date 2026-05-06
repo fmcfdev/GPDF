@@ -118,29 +118,19 @@
         <div class="footer-grid">
           <!-- Coluna 1: Marca -->
           <div class="footer-col brand">
-            <img src="assets/img/logo.webp" alt="GPDFTools" class="footer-logo" />
-            <p>Ferramentas de PDF 100% locais. Sua privacidade é nossa prioridade absoluta — nenhum arquivo sai do seu dispositivo.</p>
+            <a href="./index.html" class="footer-logo-link">
+              <img src="./assets/img/logo.webp" alt="GPDFTools" class="footer-logo" />
+            </a>
+            <p>O conjunto essencial de ferramentas PDF projetado para ser simples, rápido e, acima de tudo, respeitar a sua privacidade.</p>
           </div>
           
-          <!-- Coluna 2: Ferramentas -->
-          <div class="footer-col">
-            <h4>Ferramentas</h4>
+          <!-- Coluna 2: Links Úteis -->
+          <div class="footer-col links">
+            <h4>Institucional</h4>
             <ul>
-              <li><a href="pdf-merge.html">Juntar PDF</a></li>
-              <li><a href="pdf-split.html">Dividir PDF</a></li>
-              <li><a href="pdf-compress.html">Comprimir PDF</a></li>
-              <li><a href="pdf-watermark.html">Marca d'água</a></li>
+              <li><a href="terms.html">Termos de Uso</a></li>
+              <li><a href="privacy.html">Política de Privacidade</a></li>
             </ul>
-          </div>
-          
-          <!-- Coluna 3: Segurança -->
-          <div class="footer-col">
-            <h4>Segurança</h4>
-            <div class="footer-security-badge">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 11.08 20 9 11 18 7 14 9 12"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>Processamento 100% Local</span>
-            </div>
-            <p class="security-desc">Processamos seus arquivos usando o seu próprio navegador. Sem uploads, sem nuvem, sem riscos.</p>
           </div>
         </div>
         

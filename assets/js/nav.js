@@ -214,6 +214,7 @@
             <ul>
               <li><a href="terms.html">Termos de Uso</a></li>
               <li><a href="privacy.html">Política de Privacidade</a></li>
+              <li><a href="licenses.html">Avisos Legais (Open Source)</a></li>
             </ul>
           </div>
         </div>

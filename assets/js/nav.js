@@ -13,6 +13,12 @@
   const applyTheme = (theme) => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
+    
+    // Troca as logos dinamicamente
+    const logos = document.querySelectorAll(".logo-img, .footer-logo");
+    logos.forEach(img => {
+      img.src = `./assets/img/logo-${theme}.webp`;
+    });
   };
 
   // Aplica o tema inicial imediatamente
@@ -137,10 +143,13 @@
       </a>`;
   }).join("");
 
+  const currentTheme = getTheme();
+  const logoPath = `./assets/img/logo-${currentTheme}.webp`;
+
   const html = `
     <nav class="main-nav" role="navigation" aria-label="Navegação principal">
       <a href="./index.html" class="nav-logo" aria-label="GPDFTools — Página inicial">
-        <img src="./assets/img/logo.webp" alt="GPDFTools" class="logo-img" />
+        <img src="${logoPath}" alt="GPDFTools" class="logo-img" />
       </a>
       
       <div style="display: flex; align-items: center;">
@@ -196,7 +205,7 @@
         <div class="footer-grid">
           <div class="footer-col brand">
             <a href="./index.html" class="footer-logo-link">
-              <img src="./assets/img/logo.webp" alt="GPDFTools" class="footer-logo" />
+              <img src="${logoPath}" alt="GPDFTools" class="footer-logo" />
             </a>
             <p>O conjunto essencial de ferramentas PDF projetado para ser simples, rápido e respeitar a sua privacidade.</p>
           </div>

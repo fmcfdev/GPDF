@@ -2260,16 +2260,28 @@ select option {
   border-bottom: 1px solid var(--glass-border);
   padding-bottom: 8px;
 }
-.legal-container h3 {
+.license-accordion {
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  background: var(--input-bg);
+  overflow: hidden;
+}
+.license-accordion summary {
+  padding: 16px 20px;
+  font-weight: 600;
   color: var(--primary);
-  margin-top: 20px;
-  margin-bottom: 10px;
   font-size: 1.1rem;
+  cursor: pointer;
+  list-style: none; /* Remove seta nativa */
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
-.legal-container h3::before {
+.license-accordion summary::-webkit-details-marker {
+  display: none; /* Remove seta nativa Safari/Chrome */
+}
+.license-accordion summary::before {
   content: "";
   display: inline-block;
   width: 0;
@@ -2277,6 +2289,14 @@ select option {
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-left: 7px solid var(--primary);
+  transition: transform 0.2s ease;
+}
+.license-accordion[open] summary::before {
+  transform: rotate(90deg);
+}
+.license-accordion-content {
+  padding: 0 20px 20px 20px;
+  animation: fadeIn 0.3s ease;
 }
 .legal-container p {
   margin-bottom: 16px;

@@ -1,8 +1,28 @@
 /**
  * GPDFTools — Componente de Navegação Global
- * Injeta o header fixo e a sidebar em todas as páginas.
+ * Injeta o header fixo, sidebar e favicon em todas as páginas.
  */
 (function () {
+  // Injeta o Favicon dinamicamente
+  const injectFavicon = () => {
+    const head = document.head || document.getElementsByTagName("head")[0];
+    
+    // Favicon padrão
+    const link = document.createElement("link");
+    link.rel = "icon";
+    link.type = "image/png";
+    link.href = "./assets/img/favicon.png";
+    head.appendChild(link);
+
+    // Apple Touch Icon
+    const appleLink = document.createElement("link");
+    appleLink.rel = "apple-touch-icon";
+    appleLink.href = "./assets/img/favicon.png";
+    head.appendChild(appleLink);
+  };
+
+  injectFavicon();
+
   const LINKS = [
     {
       href: "./index.html",
@@ -55,7 +75,7 @@
   const html = `
     <nav class="main-nav" role="navigation" aria-label="Navegação principal">
       <a href="./index.html" class="nav-logo" aria-label="GPDFTools — Página inicial">
-        GPDF<span>Tools</span>
+        <img src="./assets/img/logo.webp" alt="GPDFTools" class="logo-img" />
       </a>
       <button
         class="menu-toggle"

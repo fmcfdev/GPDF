@@ -1159,16 +1159,20 @@ footer {
 
 /* ── Logo ── */
 .nav-logo {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--text-main);
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  letter-spacing: -0.5px;
   transition: opacity 0.2s ease;
 }
 
 .nav-logo:hover {
   opacity: 0.8;
+}
+
+.logo-img {
+  height: 28px;
+  width: auto;
+  display: block;
 }
 
 .nav-logo span {
@@ -1441,8 +1445,8 @@ footer {
     padding: 0 16px;
   }
 
-  .nav-logo {
-    font-size: 1.2rem;
+  .nav-logo .logo-img {
+    height: 22px;
   }
 
   .page-container {

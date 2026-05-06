@@ -2239,6 +2239,64 @@ select option {
   border: 1px solid rgba(34, 197, 94, 0.15);
 }
 
+/* ── Páginas Legais (Licenças, Termos, Privacidade) ── */
+.legal-container {
+  max-width: 800px;
+  margin: 40px auto 60px;
+  padding: 0 24px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.legal-container h1 {
+  color: var(--text-main);
+  margin-bottom: 30px;
+  font-size: 2.2rem;
+}
+.legal-container h2 {
+  color: var(--text-main);
+  margin-top: 40px;
+  margin-bottom: 16px;
+  font-size: 1.4rem;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 8px;
+}
+.legal-container h3 {
+  color: var(--primary);
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.legal-container h3::before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 7px solid var(--primary);
+}
+.legal-container p {
+  margin-bottom: 16px;
+}
+.license-box {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+.license-box pre {
+  font-family: monospace;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  color: var(--text-muted);
+  margin: 0;
+}
+
 /* ══════════════════════════════════════════════
    DESIGN RESPONSIVO (Consolidado)
    ══════════════════════════════════════════════ */

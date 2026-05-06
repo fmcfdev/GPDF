@@ -119,7 +119,7 @@
               <input type="radio" name="compressionLevel" value="high" checked>
               <div class="level-card-content">
                 <div class="level-title">Alta Compressão</div>
-                <div class="level-desc">Menor tamanho, qualidade de imagem reduzida (72 DPI).</div>
+                <div class="level-desc">Menor arquivo possível. Ideal para envios rápidos onde o tamanho é crítico. Qualidade de imagem reduzida.</div>
                 <div class="level-badge">Recomendado para Web</div>
               </div>
             </label>
@@ -128,7 +128,7 @@
               <input type="radio" name="compressionLevel" value="medium">
               <div class="level-card-content">
                 <div class="level-title">Média Compressão</div>
-                <div class="level-desc">Equilíbrio ideal entre tamanho e qualidade (150 DPI).</div>
+                <div class="level-desc">Equilíbrio perfeito. Reduz o tamanho mantendo uma ótima qualidade para leitura em telas e e-mails.</div>
                 <div class="level-badge">Ideal para E-mail</div>
               </div>
             </label>
@@ -137,7 +137,7 @@
               <input type="radio" name="compressionLevel" value="low">
               <div class="level-card-content">
                 <div class="level-title">Baixa Compressão</div>
-                <div class="level-desc">Alta qualidade de imagem, menor redução de tamanho (300 DPI).</div>
+                <div class="level-desc">Alta qualidade. Reduz levemente o arquivo mantendo a nitidez original. Recomendado para arquivos importantes.</div>
                 <div class="level-badge">Ideal para Impressão</div>
               </div>
             </label>
@@ -149,6 +149,46 @@
           <button id="processBtn" class="btn-primary">
             Comprimir PDF e Baixar
           </button>
+        </div>
+      </div>
+
+      <!-- Etapa 3: Resultado -->
+      <div id="resultPanel" style="display: none">
+        <div class="result-card">
+          <div class="result-header">
+            <div class="success-icon">
+              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <h3>PDF Comprimido com Sucesso!</h3>
+          </div>
+          
+          <div class="savings-stats">
+            <div class="stat-box">
+              <span class="stat-label">Original</span>
+              <span id="originalSizeResult" class="stat-value">--</span>
+            </div>
+            <div class="stat-arrow">→</div>
+            <div class="stat-box">
+              <span class="stat-label">Comprimido</span>
+              <span id="compressedSizeResult" class="stat-value">--</span>
+            </div>
+            <div class="stat-badge">
+              <span id="savingsPercentage">--%</span>
+              <small>menor</small>
+            </div>
+          </div>
+
+          <div class="actions" style="flex-direction: column; gap: 12px;">
+            <button id="downloadAgainBtn" class="btn-primary" style="width: 100%;">
+              Baixar PDF Comprimido
+            </button>
+            <button id="startOverBtn" class="btn-secondary" style="width: 100%;">
+              Comprimir Outro Arquivo
+            </button>
+          </div>
         </div>
       </div>
 

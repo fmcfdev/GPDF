@@ -17,6 +17,14 @@
   const loaderOverlay = document.getElementById("loaderOverlay");
   const statusUpdate = document.getElementById("statusUpdate");
 
+  // Painel de Resultado
+  const resultPanel = document.getElementById("resultPanel");
+  const originalSizeResult = document.getElementById("originalSizeResult");
+  const compressedSizeResult = document.getElementById("compressedSizeResult");
+  const savingsPercentage = document.getElementById("savingsPercentage");
+  const downloadAgainBtn = document.getElementById("downloadAgainBtn");
+  const startOverBtn = document.getElementById("startOverBtn");
+
   // Modal de Servidor
   const serverModal = document.getElementById("serverSuggestionModal");
   const closeModalBtn = document.getElementById("closeModalBtn");
@@ -24,6 +32,7 @@
   const processServerBtn = document.getElementById("processServerBtn");
 
   let selectedFile = null;
+  let compressedBlob = null;
   let gsModule = null;
 
   // ── Eventos de Seleção de Arquivo ──
@@ -82,23 +91,47 @@
   });
 
   processServerBtn.addEventListener("click", () => {
-    // Opção desabilitada conforme pedido do usuário
     alert("O processamento em servidor está em desenvolvimento. Por favor, use o processamento local por enquanto.");
   });
+
+  function downloadBlob() {
+    if (!compressedBlob) return;
+    const url = URL.createObjectURL(compressedBlob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `GPDFTools_comprimido_${selectedFile.name}`;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 100);
+  }
+
+  downloadAgainBtn.addEventListener("click", downloadBlob);
+  startOverBtn.addEventListener("click", resetApp);
 
   function showConfigPanel() {
     dropZone.style.display = "none";
     compressPanel.style.display = "block";
+    resultPanel.style.display = "none";
     fileNameDisplay.textContent = selectedFile.name;
-    fileSizeDisplay.textContent = `Tamanho original: ${(selectedFile.size / (1024 * 1024)).toFixed(2)} MB`;
+    fileSizeDisplay.textContent = `Tamanho original: ${formatBytes(selectedFile.size)}`;
   }
 
   function resetApp() {
     selectedFile = null;
+    compressedBlob = null;
     dropZone.style.display = "flex";
     compressPanel.style.display = "none";
+    resultPanel.style.display = "none";
     fileInput.value = "";
     statusUpdate.innerHTML = "";
+  }
+
+  function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
   }
 
   resetBtn.addEventListener("click", resetApp);
@@ -201,27 +234,34 @@
       } catch (e) {
         throw new Error("O Ghostscript não conseguiu gerar o arquivo de saída. Verifique se o PDF não possui proteção por senha.");
       }
-      const blob = new Blob([outputData], { type: "application/pdf" });
       
-      // Download automático
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `GPDFTools_comprimido_${selectedFile.name}`;
-      link.click();
-      URL.revokeObjectURL(url);
+      compressedBlob = new Blob([outputData], { type: "application/pdf" });
+      
+      // Estatísticas
+      const originalSize = selectedFile.size;
+      const compressedSize = compressedBlob.size;
+      const savings = ((originalSize - compressedSize) / originalSize) * 100;
+
+      originalSizeResult.textContent = formatBytes(originalSize);
+      compressedSizeResult.textContent = formatBytes(compressedSize);
+      savingsPercentage.textContent = `${Math.max(0, savings).toFixed(0)}%`;
+
+      // Troca de painéis
+      compressPanel.style.display = "none";
+      resultPanel.style.display = "block";
+      loaderOverlay.style.display = "none";
+
+      // Dispara o download inicial
+      downloadBlob();
 
       // Limpeza do FS virtual
       module.FS.unlink(inputName);
       module.FS.unlink(outputName);
 
-      loaderOverlay.style.display = "none";
-      statusUpdate.innerHTML = `<div class="status-success">✅ PDF comprimido com sucesso!</div>`;
-
     } catch (error) {
       console.error("Erro durante a compressão:", error);
       loaderOverlay.style.display = "none";
-      alert("Ocorreu um erro ao comprimir o arquivo. Tente novamente ou use um nível de compressão diferente.");
+      alert(error.message || "Ocorreu um erro ao comprimir o arquivo. Tente novamente.");
     }
   });
 

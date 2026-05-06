@@ -103,12 +103,57 @@
       </nav>
 
       <div class="sidebar-footer">
-        <p>
-          <span class="shield-icon" aria-hidden="true">🔒</span>
-          Seus arquivos nunca saem do seu dispositivo. Processamento 100% local.
-        </p>
+        <div class="sidebar-trust">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Privacidade Total</span>
+        </div>
       </div>
     </aside>
+  `;
+
+  // ── HTML do Rodapé Profissional ──
+  const footerHTML = `
+    <footer class="site-footer">
+      <div class="footer-container">
+        <div class="footer-grid">
+          <!-- Coluna 1: Marca -->
+          <div class="footer-col brand">
+            <img src="assets/img/logo.webp" alt="GPDFTools" class="footer-logo" />
+            <p>Ferramentas de PDF 100% locais. Sua privacidade é nossa prioridade absoluta — nenhum arquivo sai do seu dispositivo.</p>
+          </div>
+          
+          <!-- Coluna 2: Ferramentas -->
+          <div class="footer-col">
+            <h4>Ferramentas</h4>
+            <ul>
+              <li><a href="pdf-merge.html">Juntar PDF</a></li>
+              <li><a href="pdf-split.html">Dividir PDF</a></li>
+              <li><a href="pdf-compress.html">Comprimir PDF</a></li>
+              <li><a href="pdf-watermark.html">Marca d'água</a></li>
+            </ul>
+          </div>
+          
+          <!-- Coluna 3: Segurança -->
+          <div class="footer-col">
+            <h4>Segurança</h4>
+            <div class="footer-security-badge">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 11.08 20 9 11 18 7 14 9 12"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Processamento 100% Local</span>
+            </div>
+            <p class="security-desc">Processamos seus arquivos usando o seu próprio navegador. Sem uploads, sem nuvem, sem riscos.</p>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <div class="footer-copyright">
+            &copy; ${new Date().getFullYear()} GPDFTools — Todos os direitos reservados.
+          </div>
+          <div class="footer-legal">
+            Privacidade e Segurança em primeiro lugar.
+          </div>
+        </div>
+      </div>
+    </footer>
   `;
 
   // ── Injeta no placeholder ──
@@ -116,63 +161,46 @@
   if (!placeholder) return;
   placeholder.innerHTML = html;
 
+  // ── Injeta o rodapé no final do body se não houver um placeholder específico ──
+  document.body.insertAdjacentHTML('beforeend', footerHTML);
+
   // ── Elementos de controle ──
   const toggle = document.getElementById("menuToggle");
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("sidebarOverlay");
   const closeBtn = document.getElementById("sidebarClose");
 
-  function openMenu() {
-    sidebar.classList.add("open");
-    overlay.classList.add("visible");
-    toggle.classList.add("open");
-    toggle.setAttribute("aria-expanded", "true");
-    sidebar.setAttribute("aria-hidden", "false");
-    overlay.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  }
+  if (toggle && sidebar && overlay && closeBtn) {
+    function openMenu() {
+      sidebar.classList.add("open");
+      overlay.classList.add("visible");
+      toggle.classList.add("open");
+      toggle.setAttribute("aria-expanded", "true");
+      sidebar.setAttribute("aria-hidden", "false");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
 
-  function closeMenu() {
-    sidebar.classList.remove("open");
-    overlay.classList.remove("visible");
-    toggle.classList.remove("open");
-    toggle.setAttribute("aria-expanded", "false");
-    sidebar.setAttribute("aria-hidden", "true");
-    overlay.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  }
+    function closeMenu() {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("visible");
+      toggle.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+      sidebar.setAttribute("aria-hidden", "true");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
 
-  toggle.addEventListener("click", () => {
-    sidebar.classList.contains("open") ? closeMenu() : openMenu();
-  });
+    toggle.addEventListener("click", () => {
+      sidebar.classList.contains("open") ? closeMenu() : openMenu();
+    });
 
-  closeBtn.addEventListener("click", closeMenu);
-  overlay.addEventListener("click", closeMenu);
+    closeBtn.addEventListener("click", closeMenu);
+    overlay.addEventListener("click", closeMenu);
 
-  // Fecha com Esc
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && sidebar.classList.contains("open")) closeMenu();
-  });
-
-  // ── Insere o Footer global ──
-  const footerHTML = `
-    <footer>
-      <div class="trust-badge" style="margin-bottom: 0;">
-        <span>
-          <span style="display: flex; justify-content: center; align-items: center; gap: 8px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            Processamento 100% local
-          </span>
-          Seus arquivos nunca saem do dispositivo proporcionando total segurança e privacidade.
-        </span>
-      </div>
-    </footer>
-  `;
-
-  const container = document.querySelector(".page-container, .home-container");
-  if (container) {
-    container.insertAdjacentHTML("beforeend", footerHTML);
+    // Fecha com Esc
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && sidebar.classList.contains("open")) closeMenu();
+    });
   }
 })();

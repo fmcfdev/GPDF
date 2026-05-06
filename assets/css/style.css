@@ -60,11 +60,20 @@ body {
   min-height: 100vh;
   background: var(--bg-gradient);
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column; /* Empilha o conteúdo e o rodapé verticalmente */
+  align-items: center;
+  justify-content: flex-start;
   color: var(--text-main);
-  padding: calc(var(--nav-height) + 30px) 15px 50px;
+  padding: calc(var(--nav-height) + 30px) 0 0; /* Removi o padding lateral e inferior fixo */
   line-height: 1.6;
+}
+
+/* Containers principais precisam de largura total ou max-width */
+.home-container, .page-container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 15px 50px;
+  flex: 1; /* Faz o conteúdo crescer e empurrar o footer para o fundo */
 }
 
 /* ── Animações globais ── */
@@ -2088,4 +2097,144 @@ select option {
   .result-actions-group {
     justify-content: center;
   }
+}
+
+/* ── Rodapé Profissional ── */
+.site-footer {
+  width: 100%;
+  margin-top: 80px;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border);
+  padding: 60px 0 30px;
+  color: var(--text-muted);
+  flex-shrink: 0; /* Impede o rodapé de encolher */
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 60px;
+  margin-bottom: 50px;
+}
+
+.footer-col h4 {
+  color: var(--text-main);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer-col.brand .footer-logo {
+  height: 28px;
+  margin-bottom: 20px;
+}
+
+.footer-col.brand p {
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+.footer-col ul a:hover {
+  color: var(--primary);
+}
+
+.footer-security-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+  padding: 10px 16px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  margin-bottom: 16px;
+}
+
+.security-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.footer-bottom {
+  padding-top: 30px;
+  border-top: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.footer-legal {
+  color: var(--text-muted);
+}
+
+/* Responsividade do Rodapé */
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-col.brand {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .site-footer {
+    padding: 40px 0 20px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .footer-col.brand {
+    grid-column: span 1;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
+
+/* ── Sidebar Trust ── */
+.sidebar-trust {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #4ade80;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: rgba(34, 197, 94, 0.1);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(34, 197, 94, 0.15);
 }

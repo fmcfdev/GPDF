@@ -232,7 +232,7 @@ h2 {
 .hero-sub {
   font-size: clamp(1rem, 3vw, 1.2rem);
   color: var(--text-muted);
-  max-width: 540px;
+  max-width: 640px;
   margin: 0 auto 36px;
   line-height: 1.7;
 }
@@ -244,7 +244,7 @@ h2 {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
-  padding: 16px 32px;
+  padding: 16px 20px;
   backdrop-filter: blur(12px);
 }
 
@@ -265,13 +265,29 @@ h2 {
   line-height: 1.2;
 }
 
+.stat-device-icons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  height: 1.9rem;
+  margin-bottom: 2px;
+}
+
+.stat-device-icons svg {
+  width: 22px;
+  height: 22px;
+  opacity: 1;
+  stroke: url(#statGradient); /* Aplica o degradê */
+  filter: drop-shadow(0 0 5px var(--primary-glow));
+}
+
 .stat span {
   font-size: 0.72rem;
   color: var(--text-muted);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  margin-top: 2px;
 }
 
 .stat-sep {
@@ -1838,8 +1854,8 @@ select option {
     margin: 10px;
   }
 
-  .modal-header, 
-  .modal-body, 
+  .modal-header,
+  .modal-body,
   .modal-footer {
     padding: 16px 20px;
   }
